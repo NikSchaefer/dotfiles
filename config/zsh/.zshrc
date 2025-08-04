@@ -24,8 +24,6 @@ alias diff='diff --color=auto'
 alias v='nvim'
 alias la="ls -A"
 alias reload='source ~/.zshrc'
-alias spotify='spotify_player'
-
 alias gorepo='url=$(git config --get remote.origin.url); if [[ -n "$url" ]]; then open "$url"; else echo "No git remote origin found"; fi'
 
 weather() { curl -s "wttr.in/$1?format=3"; }
