@@ -20,34 +20,20 @@ autoload -U compinit; compinit
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# pipx
-export PATH="$PATH:/Users/nikschaefer/.local/bin"
-
 alias cat="bat"
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -c=auto'
 alias v='nvim'
-alias o='xdg-open'
 alias la="ls -A"
-alias now='date +"%H:%M"'
 alias now='date +"%H:%M"'
 alias today="date '+%B, %e' | sed 's/  */ /g'"
 alias reload='source ~/.zshrc'
 alias spotify='spotify_player'
-alias code='cursor'
-alias pg="rainfrog"
 
-alias g='git'
-alias gs='git status'
-alias gco='git checkout'
-alias gp='git push'
-alias gl='git log --oneline'
-alias ga='git add .'
 alias gorepo='url=$(git config --get remote.origin.url); if [[ -n "$url" ]]; then open "$url"; else echo "No git remote origin found"; fi'
 
 weather() { curl -s "wttr.in/$1?format=3"; }
-gc() { git commit -m "$1"; }
 
 # powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

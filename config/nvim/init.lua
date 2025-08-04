@@ -138,13 +138,21 @@ require("lazy").setup({
     opts = {},
   },
 
-  -- Theme
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("catppuccin")
+    opts = {
+        transparent = true,
+        styles = {
+           sidebars = "transparent",
+           floats = "transparent",
+        },
+
+    },
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme("tokyonight")
     end,
   },
 
@@ -176,7 +184,7 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
 }, {
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true },
 })
 
