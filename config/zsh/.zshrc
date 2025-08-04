@@ -3,8 +3,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# brew
+# paths
 export PATH="/opt/homebrew/bin:$PATH"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
@@ -16,18 +18,11 @@ plug "hlissner/zsh-autopair"
 
 autoload -U compinit; compinit
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 alias cat="bat"
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
-alias ip='ip -c=auto'
 alias v='nvim'
 alias la="ls -A"
-alias now='date +"%H:%M"'
-alias today="date '+%B, %e' | sed 's/  */ /g'"
 alias reload='source ~/.zshrc'
 alias spotify='spotify_player'
 

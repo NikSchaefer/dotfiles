@@ -17,7 +17,7 @@ quit-after-last-window-closed = true
 confirm-close-surface = false
 
 keybind = option+j=new_split:down
-keybind = option+k=new_split:up
+keybind = option+k=new_split:up 
 keybind = option+h=new_split:left
 keybind = option+l=new_split:right
 
