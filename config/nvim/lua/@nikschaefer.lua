@@ -41,3 +41,21 @@ require("lazy").setup({
     },
   },
 })
+
+-- Mini config
+require("mini.starter").setup({
+  evaluate_single = true,
+  header = table.concat({
+    "‟What if you and I are destined to ride in",
+    "unfettered bespoke figurettes upon noble beasts",
+    "on limitless beaches pushed softly on by the wind",
+    "of the truths we create?‟",
+    "",
+    "—Exurb1a",
+  }, "\n"),
+  footer = "",
+  items = {
+    { action = "", name = "", section = "" },
+  },
+  silent = true,
+})
