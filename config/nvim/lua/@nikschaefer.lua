@@ -42,6 +42,8 @@ require("lazy").setup({
   },
 })
 
+vim.opt.relativenumber = false
+
 -- Mini config
 require("mini.starter").setup({
   header = table.concat({
