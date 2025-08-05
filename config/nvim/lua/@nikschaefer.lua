@@ -44,18 +44,48 @@ require("lazy").setup({
 
 -- Mini config
 require("mini.starter").setup({
-  evaluate_single = true,
   header = table.concat({
-    "‟What if you and I are destined to ride in",
-    "unfettered bespoke figurettes upon noble beasts",
-    "on limitless beaches pushed softly on by the wind",
-    "of the truths we create?‟",
+    "○ → ◐ → ◑ → ◒ → ●",
     "",
-    "—Exurb1a",
+    "The most seductive ideology is ",
+    "that you have no ideology,",
+    "",
   }, "\n"),
-  footer = "",
-  items = {
-    { action = "", name = "", section = "" },
+  footer = "isn't that kind of an ideology in itself? \n\n~",
+  content_hooks = {
+    function(content)
+      local filtered_content = {}
+      local cursor_line = nil
+
+      for i, line in ipairs(content) do
+        local filtered_line = {}
+        for _, unit in ipairs(line) do
+          -- Keep only header and footer content
+          if unit.type == "header" or unit.type == "footer" then
+            table.insert(filtered_line, unit)
+            if unit.type == "header" and unit.string == "The most seductive ideology is " then
+              cursor_line = #filtered_content + 6
+            end
+          end
+        end
+        -- Only add lines that have actual content
+        if #filtered_line > 0 then
+          table.insert(filtered_content, filtered_line)
+        end
+      end
+
+      -- Add an invisible item at the cursor position for positioning
+      table.insert(filtered_content[cursor_line], {
+        type = "item",
+        string = "",
+        hl = nil,
+        item = { action = "", name = "", section = "" },
+      })
+
+      return filtered_content
+    end,
+    require("mini.starter").gen_hook.aligning("center", "center"),
   },
   silent = true,
 })
+require("mini.comment").setup()
