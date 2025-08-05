@@ -42,7 +42,7 @@ require("lazy").setup({
   },
 })
 
-vim.opt.relativenumber = false
+-- vim.opt.relativenumber = false
 
 -- Mini config
 require("mini.starter").setup({
