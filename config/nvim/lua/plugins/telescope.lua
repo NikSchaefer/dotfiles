@@ -15,6 +15,7 @@ return {
           "%.DS_Store",
           "%.pyc",
           "go/.*",
+          "target/.*",
         },
       },
     })
