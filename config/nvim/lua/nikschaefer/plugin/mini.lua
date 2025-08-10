@@ -20,13 +20,13 @@ now(function()
 	require("mini.statusline").setup()
 end)
 
-now(function()
-	require("mini.animate").setup()
-end)
-
 -- now(function()
--- 	require("mini.tabline").setup()
+-- 	require("mini.animate").setup()
 -- end)
+
+now(function()
+	require("mini.tabline").setup()
+end)
 
 now(function()
 	require("mini.extra").setup()
@@ -149,14 +149,15 @@ later(function()
 end)
 later(function()
 	require("mini.files").setup()
-	-- vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>")
 	vim.keymap.set("n", "<leader>e", function()
 		local MiniFiles = require("mini.files")
 		if MiniFiles.BUF_ID then -- Check if mini.files is currently open
 			MiniFiles.close()
 		else
-			local MiniFiles = require("mini.files")
-			local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+			local buf_name = vim.api.nvim_buf_get_name(0)
+			local path = (buf_name ~= "" and not buf_name:match("^%w+://")) and buf_name or nil
+
+			local _ = MiniFiles.close() or MiniFiles.open(path, false)
 			vim.defer_fn(function()
 				MiniFiles.reveal_cwd()
 			end, 30)
@@ -202,7 +203,7 @@ later(function()
 	require("mini.icons").setup()
 end)
 
--- Ensure ripgrep is installed on system
+-- Note: Ensure ripgrep is installed on system
 later(function()
 	require("mini.pick").setup({
 		window = {

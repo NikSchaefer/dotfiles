@@ -117,4 +117,3 @@ later(function()
 	add("brianhuster/autosave.nvim")
 	require("autosave").setup()
 end)
-
