@@ -1,1 +1,1 @@
-require("@nikschaefer")
+require("nikschaefer")

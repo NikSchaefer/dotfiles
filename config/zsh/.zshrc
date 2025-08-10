@@ -18,7 +18,6 @@ plug "hlissner/zsh-autopair"
 
 autoload -U compinit; compinit
 
-alias cat="bat"
 alias v='nvim'
 alias la="ls -A"
 alias reload='source ~/.zshrc'

@@ -21,8 +21,12 @@ now(function()
 end)
 
 now(function()
-	require("mini.tabline").setup()
+	require("mini.animate").setup()
 end)
+
+-- now(function()
+-- 	require("mini.tabline").setup()
+-- end)
 
 now(function()
 	require("mini.extra").setup()
@@ -172,9 +176,9 @@ end)
 later(function()
 	require("mini.jump").setup()
 end)
--- later(function()
--- 	require("mini.jump2d").setup()
--- end)
+later(function()
+	require("mini.jump2d").setup()
+end)
 later(function()
 	require("mini.keymap").setup()
 end)
@@ -197,12 +201,15 @@ end)
 later(function()
 	require("mini.icons").setup()
 end)
+
+-- Ensure ripgrep is installed on system
 later(function()
 	require("mini.pick").setup({
 		window = {
 			config = function()
 				local height = math.floor(vim.o.lines * 0.6) -- 60% of screen height
-				local width = math.floor(vim.o.columns * 0.8) -- 80% of screen width
+				local relative_width = math.floor(vim.o.columns * 0.8) -- 80% of screen width
+				local width = math.min(relative_width, 70)
 
 				return {
 					anchor = "NW",
@@ -210,14 +217,11 @@ later(function()
 					width = width,
 					row = math.floor((vim.o.lines - height) / 2),
 					col = math.floor((vim.o.columns - width) / 2),
-					border = "rounded",
-					title = " Pick ",
-					title_pos = "center",
 				}
 			end,
-			prompt_prefix = "❯ ",
 		},
 	})
+
 	local map = vim.keymap.set
 	map("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find Files" })
 	map("n", "<leader>fg", "<cmd>Pick grep_live<cr>", { desc = "Live Grep" })
