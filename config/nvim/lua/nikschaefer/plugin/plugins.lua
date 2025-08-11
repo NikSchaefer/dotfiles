@@ -43,21 +43,6 @@ now(function()
 			enable = true,
 		},
 	})
-
-	-- Must be installed before treesitter
-	add("OXY2DEV/markview.nvim")
-	local presets = require("markview.presets")
-	require("markview").setup({
-		markdown = {
-			headings = presets.headings.arrowed,
-			tables = presets.tables.rounded,
-		},
-	})
-	require("markview.extras.checkboxes").setup()
-	require("markview.extras.editor").setup()
-	require("markview.extras.headings").setup()
-
-	vim.keymap.set("n", "<leader>mc", "<cmd>Checkbox interactive<CR>")
 end)
 
 -- LSP & Completion
@@ -67,10 +52,10 @@ later(function()
 		source = "neovim/nvim-lspconfig",
 		depends = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
 	})
-
 	-- Installer for LSP, formatters, linters, etc
 	add("williamboman/mason.nvim")
 	require("mason").setup()
+
 	-- Mute LSP progress notifications
 	vim.lsp.handlers["$/progress"] = function() end
 
@@ -102,18 +87,6 @@ later(function()
 							{ desc = "Code action", buffer = bufnr }
 						)
 					end,
-					["rust-analyzer"] = {
-						checkOnSave = {
-							command = "check",
-						},
-						diagnostics = {
-							refreshSupport = true,
-						},
-						-- This makes it run diagnostics on buffer changes
-						cargo = {
-							runBuildScripts = true,
-						},
-					},
 				})
 			end,
 		},
@@ -124,7 +97,6 @@ later(function()
 	require("mason-tool-installer").setup({
 		ensure_installed = {
 			"rustfmt",
-			"gopls",
 			"prettierd",
 			"stylua",
 		},
@@ -135,7 +107,7 @@ later(function()
 	require("conform").setup({
 		formatters_by_ft = {
 			rust = { "rustfmt" },
-			go = { "gofmt" },
+			go = { "gopls" },
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
@@ -165,4 +137,20 @@ later(function()
 		underline = true,
 		update_in_insert = false,
 	})
+end)
+
+later(function()
+	add("OXY2DEV/markview.nvim")
+	local presets = require("markview.presets")
+	require("markview").setup({
+		markdown = {
+			headings = presets.headings.arrowed,
+			tables = presets.tables.rounded,
+		},
+	})
+	require("markview.extras.checkboxes").setup()
+	require("markview.extras.editor").setup()
+	require("markview.extras.headings").setup()
+
+	vim.keymap.set("n", "<leader>mc", "<cmd>Checkbox interactive<CR>")
 end)

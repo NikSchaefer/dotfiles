@@ -151,8 +151,7 @@ later(function()
 		if MiniFiles.BUF_ID then -- Check if mini.files is currently open
 			MiniFiles.close()
 		else
-
-            -- Open at root but at this file
+			-- Open at root but at this file
 			local buf_name = vim.api.nvim_buf_get_name(0)
 			local path = (buf_name ~= "" and not buf_name:match("^%w+://")) and buf_name or nil
 
