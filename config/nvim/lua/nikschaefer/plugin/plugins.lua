@@ -74,7 +74,9 @@ later(function()
 		automatic_installation = true,
 		handlers = {
 			function(server_name)
+				local capabilities = require("blink.cmp").get_lsp_capabilities
 				require("lspconfig")[server_name].setup({
+					capabilities = capabilities,
 					on_attach = function(_, bufnr)
 						vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", buffer = bufnr })
 						vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "More information", buffer = bufnr })
@@ -140,6 +142,25 @@ later(function()
 end)
 
 later(function()
+	add({
+		source = "saghen/blink.cmp",
+		depends = { "rafamadriz/friendly-snippets" },
+	})
+	require("blink.cmp").setup({
+		fuzzy = {
+			implementation = "lua",
+		},
+		sources = {
+			default = { "lsp", "path", "snippets", "buffer" },
+		},
+		keymap = {
+			preset = "default",
+			["<Tab>"] = { "accept", "fallback" },
+		},
+	})
+end)
+
+later(function()
 	add("OXY2DEV/markview.nvim")
 	local presets = require("markview.presets")
 	require("markview").setup({
@@ -153,4 +174,7 @@ later(function()
 	require("markview.extras.headings").setup()
 
 	vim.keymap.set("n", "<leader>mc", "<cmd>Checkbox interactive<CR>")
+	vim.keymap.set("n", "<leader>mt", function()
+		vim.api.nvim_put({ "- [ ]" }, "l", true, true)
+	end)
 end)
