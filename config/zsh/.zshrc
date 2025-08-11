@@ -18,9 +18,11 @@ plug "hlissner/zsh-autopair"
 
 autoload -U compinit; compinit
 
-alias v='nvim'
-alias la="ls -A"
-alias gorepo='url=$(git config --get remote.origin.url); if [[ -n "$url" ]]; then open "$url"; else echo "No git remote origin found"; fi'
+alias v="nvim"
+alias cat="bat"
+alias ls="eza --icons"
+alias la="eza -A --icons"
+alias gorepo="url=$(git config --get remote.origin.url); if [[ -n "$url" ]]; then open "$url"; else echo "No git remote origin found"; fi"
 
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

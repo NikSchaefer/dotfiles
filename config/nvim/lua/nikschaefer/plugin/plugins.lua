@@ -14,7 +14,7 @@ now(function()
 end)
 
 -- Treesitter
-later(function()
+now(function()
 	add({
 		source = "nvim-treesitter/nvim-treesitter",
 		hooks = {
@@ -24,7 +24,17 @@ later(function()
 		},
 	})
 	require("nvim-treesitter.configs").setup({
-		ensure_installed = { "rust", "go", "javascript", "typescript", "lua", "html", "css" },
+		ensure_installed = {
+			"rust",
+			"go",
+			"javascript",
+			"typescript",
+			"lua",
+			"html",
+			"css",
+			"markdown",
+			"markdown_inline",
+		},
 		auto_install = true,
 		highlight = {
 			enable = true,
@@ -33,6 +43,21 @@ later(function()
 			enable = true,
 		},
 	})
+
+	-- Must be installed before treesitter
+	add("OXY2DEV/markview.nvim")
+	local presets = require("markview.presets")
+	require("markview").setup({
+		markdown = {
+			headings = presets.headings.arrowed,
+			tables = presets.tables.rounded,
+		},
+	})
+	require("markview.extras.checkboxes").setup()
+	require("markview.extras.editor").setup()
+	require("markview.extras.headings").setup()
+
+	vim.keymap.set("n", "<leader>mc", "<cmd>Checkbox interactive<CR>")
 end)
 
 -- LSP & Completion
