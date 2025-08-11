@@ -20,10 +20,6 @@ now(function()
 	require("mini.statusline").setup()
 end)
 
--- now(function()
--- 	require("mini.animate").setup()
--- end)
-
 now(function()
 	require("mini.tabline").setup()
 end)
@@ -79,6 +75,14 @@ now(function()
 		},
 		silent = true,
 		query_updaters = "",
+	})
+end)
+
+now(function()
+	require("mini.animate").setup({
+		cursor = {
+			enable = false,
+		},
 	})
 end)
 
@@ -145,9 +149,6 @@ later(function()
 	require("mini.diff").setup()
 end)
 later(function()
-	require("mini.doc").setup()
-end)
-later(function()
 	require("mini.files").setup()
 	vim.keymap.set("n", "<leader>e", function()
 		local MiniFiles = require("mini.files")
@@ -182,9 +183,6 @@ later(function()
 end)
 later(function()
 	require("mini.keymap").setup()
-end)
-later(function()
-	require("mini.map").setup()
 end)
 
 later(function()
@@ -242,7 +240,4 @@ later(function()
 end)
 later(function()
 	require("mini.trailspace").setup()
-end)
-later(function()
-	require("mini.visits").setup()
 end)

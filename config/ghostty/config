@@ -17,8 +17,18 @@ quit-after-last-window-closed = true
 confirm-close-surface = false
 mouse-hide-while-typing = true
 
-keybind = option+j=new_split:down
-keybind = option+k=new_split:up
-keybind = option+h=new_split:left
-keybind = option+l=new_split:right
+# Split terminal
+keybind = super+shift+h=new_split:left
+keybind = super+shift+j=new_split:down
+keybind = super+shift+k=new_split:up
+keybind = super+shift+l=new_split:right
+
+# Navigate between splits
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:down
+keybind = super+k=goto_split:up
+keybind = super+l=goto_split:right
+
+keybind = super+;=clear_screen
+
 
