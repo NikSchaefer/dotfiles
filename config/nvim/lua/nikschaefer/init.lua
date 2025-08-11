@@ -15,5 +15,3 @@ require("nikschaefer/mappings")
 require("nikschaefer/autocmds")
 require("nikschaefer.plugin/mini")
 require("nikschaefer.plugin/plugins")
--- Define main config table to be able to use it in scripts
-_G.Config = {}
