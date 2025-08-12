@@ -160,8 +160,11 @@ later(function()
 	})
 end)
 
-later(function()
-	add("OXY2DEV/markview.nvim")
+now(function()
+	add({
+		source = "OXY2DEV/markview.nvim",
+		depends = { "nvim-treesitter/nvim-treesitter" },
+	})
 	local presets = require("markview.presets")
 	require("markview").setup({
 		markdown = {
@@ -173,8 +176,23 @@ later(function()
 	require("markview.extras.editor").setup()
 	require("markview.extras.headings").setup()
 
-	vim.keymap.set("n", "<leader>mc", "<cmd>Checkbox interactive<CR>")
-	vim.keymap.set("n", "<leader>mt", function()
-		vim.api.nvim_put({ "- [ ]" }, "l", true, true)
-	end)
+	vim.keymap.set("n", "<leader>me", "<cmd>Checkbox interactive<CR>")
+
+	vim.keymap.set("n", "<leader>mn", "i- [ ] ", { desc = "Insert unchecked markdown task" })
+
+	-- Insert 3-column table header with separator and empty row
+	vim.keymap.set("n", "<leader>mth", function()
+		vim.api.nvim_put({
+			"| Header 1 | Header 2 | Header 3 |",
+			"|----------|----------|----------|",
+			"|          |          |          |",
+		}, "l", true, true)
+		vim.api.nvim_feedkeys("j$hhhhhhhhhh", "n", false)
+	end, { desc = "Insert table header (3 columns)" })
+
+	-- Insert empty table row with cursor in first cell
+	vim.keymap.set("n", "<leader>mtr", function()
+		vim.api.nvim_put({ "|          |          |          |" }, "l", true, true)
+		vim.api.nvim_feedkeys("$hhhhhhhhhh", "n", false)
+	end, { desc = "Insert table row" })
 end)
