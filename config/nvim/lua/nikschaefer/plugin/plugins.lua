@@ -75,7 +75,7 @@ later(function()
 		handlers = {
 			function(server_name)
 				local capabilities = require("blink.cmp").get_lsp_capabilities
-				require("lspconfig")[server_name].setup({
+				local config = {
 					capabilities = capabilities,
 					on_attach = function(_, bufnr)
 						vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", buffer = bufnr })
@@ -89,7 +89,8 @@ later(function()
 							{ desc = "Code action", buffer = bufnr }
 						)
 					end,
-				})
+				}
+				require("lspconfig")[server_name].setup(config)
 			end,
 		},
 	})
@@ -160,39 +161,13 @@ later(function()
 	})
 end)
 
-now(function()
-	add({
-		source = "OXY2DEV/markview.nvim",
-		depends = { "nvim-treesitter/nvim-treesitter" },
-	})
-	local presets = require("markview.presets")
-	require("markview").setup({
-		markdown = {
-			headings = presets.headings.arrowed,
-			tables = presets.tables.rounded,
-		},
-	})
-	require("markview.extras.checkboxes").setup()
-	require("markview.extras.editor").setup()
-	require("markview.extras.headings").setup()
+later(function()
+	add("fmolke/zen-mode.nvim")
+    require("zen-mode").setup({
+        window = {
+            width = 85,
+        }
+    })
 
-	vim.keymap.set("n", "<leader>me", "<cmd>Checkbox interactive<CR>")
-
-	vim.keymap.set("n", "<leader>mn", "i- [ ] ", { desc = "Insert unchecked markdown task" })
-
-	-- Insert 3-column table header with separator and empty row
-	vim.keymap.set("n", "<leader>mth", function()
-		vim.api.nvim_put({
-			"| Header 1 | Header 2 | Header 3 |",
-			"|----------|----------|----------|",
-			"|          |          |          |",
-		}, "l", true, true)
-		vim.api.nvim_feedkeys("j$hhhhhhhhhh", "n", false)
-	end, { desc = "Insert table header (3 columns)" })
-
-	-- Insert empty table row with cursor in first cell
-	vim.keymap.set("n", "<leader>mtr", function()
-		vim.api.nvim_put({ "|          |          |          |" }, "l", true, true)
-		vim.api.nvim_feedkeys("$hhhhhhhhhh", "n", false)
-	end, { desc = "Insert table row" })
+    vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)

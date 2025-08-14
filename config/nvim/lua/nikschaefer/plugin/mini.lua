@@ -78,13 +78,13 @@ now(function()
 	})
 end)
 
-now(function()
-	require("mini.animate").setup({
-		cursor = {
-			enable = false,
-		},
-	})
-end)
+-- now(function()
+-- 	require("mini.animate").setup({
+-- 		cursor = {
+-- 			enable = false,
+-- 		},
+-- 	})
+-- end)
 
 -- Lazy loaded Mini packages
 
@@ -160,7 +160,7 @@ later(function()
 				MiniFiles.reveal_cwd()
 			end, 30)
 		end
-	end)
+	end, { desc = "Open file explorer" })
 end)
 
 later(function()

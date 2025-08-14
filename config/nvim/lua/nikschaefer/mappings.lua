@@ -2,11 +2,11 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Yanks go to your OS clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>Y", [["+Y]], { desc = "Yank to system clipboard" })
 
 -- Deletes without copying to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })
 
 -- Split windows (vim-style directions)
 vim.keymap.set("n", "<leader>sh", "<C-w>v", { desc = "Split window left (vertical)" })

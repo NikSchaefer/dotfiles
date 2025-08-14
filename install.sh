@@ -75,18 +75,18 @@ main() {
     # Detect OS
     OS=$(detect_os)
     log_info "Detected OS: $OS"
-    
+
     # Ensure config directory exists
     mkdir -p "$HOME/.config"
-    
+
     # Create symlinks for config files
     log_info "Creating configuration symlinks..."
-    
+
     # Neovim
     if [[ -d "$DOTFILES_DIR/config/nvim" ]]; then
         create_symlink "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
     fi
-    
+
     # Ghostty
     if [[ -d "$DOTFILES_DIR/config/ghostty" ]]; then
         if [[ "$OS" == "macos" ]]; then
@@ -95,12 +95,16 @@ main() {
             create_symlink "$DOTFILES_DIR/config/ghostty" "$HOME/.config/ghostty"
         fi
     fi
-    
+
     # Zsh
     if [[ -f "$DOTFILES_DIR/config/zsh/.zshrc" ]]; then
         create_symlink "$DOTFILES_DIR/config/zsh/.zshrc" "$HOME/.zshrc"
     fi
-    
+
+    if [[ -f "$DOTFILES_DIR/config/zsh/.p10k.zsh" ]]; then
+        create_symlink "$DOTFILES_DIR/config/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
+    fi
+
     if [[ -f "$DOTFILES_DIR/config/zsh/.zshenv" ]]; then
         create_symlink "$DOTFILES_DIR/config/zsh/.zshenv" "$HOME/.zshenv"
     fi
