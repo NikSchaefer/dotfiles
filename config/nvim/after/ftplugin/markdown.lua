@@ -7,13 +7,7 @@ now(function()
 		source = "OXY2DEV/markview.nvim",
 		depends = { "nvim-treesitter/nvim-treesitter" },
 	})
-	local presets = require("markview.presets")
-	require("markview").setup({
-		markdown = {
-			headings = presets.headings.arrowed,
-			tables = presets.tables.rounded,
-		},
-	})
+	require("markview").setup()
 	require("markview.extras.checkboxes").setup()
 	require("markview.extras.editor").setup()
 	require("markview.extras.headings").setup()
@@ -37,5 +31,8 @@ now(function()
 		vim.api.nvim_put({ "|          |          |          |" }, "l", true, true)
 		vim.api.nvim_feedkeys("$hhhhhhhhhh", "n", false)
 	end, { desc = "Insert table row" })
-end)
 
+    vim.defer_fn(function ()
+        require("zen-mode").toggle()
+    end, 1)
+end)
