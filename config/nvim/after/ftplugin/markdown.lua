@@ -1,6 +1,7 @@
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 vim.opt.wrap = true
+vim.opt.spell = true
 
 now(function()
 	add({

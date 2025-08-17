@@ -15,20 +15,14 @@ end)
 
 -- Treesitter
 now(function()
-	add({
-		source = "nvim-treesitter/nvim-treesitter",
-		hooks = {
-			post_checkout = function()
-				vim.cmd("TSUpdate")
-			end,
-		},
-	})
+	add("nvim-treesitter/nvim-treesitter")
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = {
 			"rust",
 			"go",
 			"javascript",
 			"typescript",
+			"tsx",
 			"lua",
 			"html",
 			"css",
@@ -45,6 +39,32 @@ now(function()
 	})
 end)
 
+-- Auto pairs for HTML/JSX tags and general pairs
+later(function()
+	add("windwp/nvim-autopairs")
+	add("windwp/nvim-ts-autotag")
+
+	-- Setup auto-pairs
+	require("nvim-autopairs").setup({
+		check_ts = true,
+		ts_config = {
+			lua = { "string" },
+			javascript = { "string", "template_string" },
+			typescript = { "string", "template_string" },
+			tsx = { "string", "template_string" },
+			jsx = { "string", "template_string" },
+		},
+	})
+	-- Setup auto-tag for HTML/JSX
+	require("nvim-ts-autotag").setup({
+		opts = {
+			enable_close = true, -- Auto close tags
+			enable_rename = true, -- Auto rename pairs of tags
+			enable_close_on_slash = true, -- Auto close on trailing </
+		},
+	})
+end)
+
 -- LSP & Completion
 later(function()
 	-- Enable lsp configs
@@ -55,10 +75,8 @@ later(function()
 	-- Installer for LSP, formatters, linters, etc
 	add("williamboman/mason.nvim")
 	require("mason").setup()
-
 	-- Mute LSP progress notifications
 	vim.lsp.handlers["$/progress"] = function() end
-
 	-- Bridge for lsp configs to auto install from mason.nvim
 	add({
 		source = "williamboman/mason-lspconfig.nvim",
@@ -70,11 +88,15 @@ later(function()
 			"gopls",
 			"ts_ls",
 			"lua_ls",
+			"html",
+			"cssls",
+			"emmet_ls",
+			"tailwindcss",
 		},
 		automatic_installation = true,
 		handlers = {
 			function(server_name)
-				local capabilities = require("blink.cmp").get_lsp_capabilities
+				local capabilities = require("blink.cmp").get_lsp_capabilities()
 				local config = {
 					capabilities = capabilities,
 					on_attach = function(_, bufnr)
@@ -90,11 +112,76 @@ later(function()
 						)
 					end,
 				}
+
+				-- Special config for TypeScript/JavaScript
+				if server_name == "ts_ls" then
+					config.settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					}
+				end
+
+				-- Special config for Tailwind CSS
+				if server_name == "tailwindcss" then
+					config.settings = {
+						tailwindCSS = {
+							classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+							lint = {
+								cssConflict = "warning",
+								invalidApply = "error",
+								invalidConfigPath = "error",
+								invalidScreen = "error",
+								invalidTailwindDirective = "error",
+								invalidVariant = "error",
+								recommendedVariantOrder = "warning",
+							},
+							validate = true,
+						},
+					}
+				end
+
+				-- Special config for Emmet
+				if server_name == "emmet_ls" then
+					config.filetypes = {
+						"css",
+						"html",
+						"javascript",
+						"javascriptreact",
+						"typescriptreact",
+					}
+					config.init_options = {
+						html = {
+							options = {
+								["bem.enabled"] = true,
+							},
+						},
+					}
+				end
+
 				require("lspconfig")[server_name].setup(config)
 			end,
 		},
 	})
-
 	-- Ensure installed formatters
 	add("WhoIsSethDaniel/mason-tool-installer.nvim")
 	require("mason-tool-installer").setup({
@@ -104,7 +191,6 @@ later(function()
 			"stylua",
 		},
 	})
-
 	-- Conform for formatting
 	add("stevearc/conform.nvim")
 	require("conform").setup({
@@ -115,6 +201,8 @@ later(function()
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			typescriptreact = { "prettierd" },
+			html = { "prettierd" },
+			css = { "prettierd" },
 			lua = { "stylua" },
 		},
 		format_on_save = function()
@@ -125,7 +213,6 @@ later(function()
 			return { lsp_fallback = true }
 		end,
 	})
-
 	vim.keymap.set("n", "<leader>ss", function()
 		require("conform").format()
 	end, { desc = "Format file" })
@@ -157,17 +244,22 @@ later(function()
 		keymap = {
 			preset = "default",
 			["<Tab>"] = { "accept", "fallback" },
+			["<Enter>"] = { "accept", "fallback" },
+		},
+		completion = {
+			trigger = {
+				show_on_insert_on_trigger_character = true,
+			},
 		},
 	})
 end)
 
 later(function()
 	add("fmolke/zen-mode.nvim")
-    require("zen-mode").setup({
-        window = {
-            width = 85,
-        }
-    })
-
-    vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
+	require("zen-mode").setup({
+		window = {
+			width = 85,
+		},
+	})
+	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
