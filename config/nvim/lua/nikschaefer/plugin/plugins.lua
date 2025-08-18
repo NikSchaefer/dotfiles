@@ -124,6 +124,7 @@ later(function()
 			"rustfmt",
 			"prettierd",
 			"stylua",
+			"gofumpt",
 		},
 	})
 	-- Conform for formatting
@@ -131,7 +132,7 @@ later(function()
 	require("conform").setup({
 		formatters_by_ft = {
 			rust = { "rustfmt" },
-			go = { "gopls" },
+			go = { "gofumpt" },
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
@@ -179,7 +180,6 @@ later(function()
 		keymap = {
 			preset = "default",
 			["<Tab>"] = { "accept", "fallback" },
-			["<Enter>"] = { "accept", "fallback" },
 		},
 		completion = {
 			trigger = {

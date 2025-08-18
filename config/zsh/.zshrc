@@ -5,8 +5,9 @@ fi
 
 # Paths
 export PATH="/opt/homebrew/bin:$PATH"
-export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export BUN_INSTALL="$HOME/.bun"
 
 # Zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
