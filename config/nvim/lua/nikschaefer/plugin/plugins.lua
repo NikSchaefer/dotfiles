@@ -58,9 +58,9 @@ later(function()
 	-- Setup auto-tag for HTML/JSX
 	require("nvim-ts-autotag").setup({
 		opts = {
-			enable_close = true, -- Auto close tags
-			enable_rename = true, -- Auto rename pairs of tags
-			enable_close_on_slash = true, -- Auto close on trailing </
+			enable_close = true,
+			enable_rename = true,
+			enable_close_on_slash = true,
 		},
 	})
 end)
@@ -112,71 +112,6 @@ later(function()
 						)
 					end,
 				}
-
-				-- Special config for TypeScript/JavaScript
-				if server_name == "ts_ls" then
-					config.settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					}
-				end
-
-				-- Special config for Tailwind CSS
-				if server_name == "tailwindcss" then
-					config.settings = {
-						tailwindCSS = {
-							classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
-							lint = {
-								cssConflict = "warning",
-								invalidApply = "error",
-								invalidConfigPath = "error",
-								invalidScreen = "error",
-								invalidTailwindDirective = "error",
-								invalidVariant = "error",
-								recommendedVariantOrder = "warning",
-							},
-							validate = true,
-						},
-					}
-				end
-
-				-- Special config for Emmet
-				if server_name == "emmet_ls" then
-					config.filetypes = {
-						"css",
-						"html",
-						"javascript",
-						"javascriptreact",
-						"typescriptreact",
-					}
-					config.init_options = {
-						html = {
-							options = {
-								["bem.enabled"] = true,
-							},
-						},
-					}
-				end
 
 				require("lspconfig")[server_name].setup(config)
 			end,

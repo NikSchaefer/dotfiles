@@ -78,14 +78,6 @@ now(function()
 	})
 end)
 
--- now(function()
--- 	require("mini.animate").setup({
--- 		cursor = {
--- 			enable = false,
--- 		},
--- 	})
--- end)
-
 -- Lazy loaded Mini packages
 
 later(function()
@@ -138,9 +130,6 @@ later(function()
 	require("mini.comment").setup()
 end)
 
--- later(function()
--- 	require("mini.completion").setup()
--- end)
 later(function()
 	require("mini.diff").setup()
 end)
