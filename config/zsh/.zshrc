@@ -23,6 +23,7 @@ alias v="nvim"
 alias cat="bat"
 alias ls="eza --icons"
 alias la="eza -A --icons"
+alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
