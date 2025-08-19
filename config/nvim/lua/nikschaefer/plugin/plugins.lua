@@ -92,6 +92,7 @@ later(function()
 			"cssls",
 			"emmet_ls",
 			"tailwindcss",
+			"tinymist", -- Typst
 		},
 		automatic_installation = true,
 		handlers = {
@@ -124,7 +125,8 @@ later(function()
 			"rustfmt",
 			"prettierd",
 			"stylua",
-			"gofumpt",
+			"goimports",
+			"typstyle",
 		},
 	})
 	-- Conform for formatting
@@ -132,7 +134,7 @@ later(function()
 	require("conform").setup({
 		formatters_by_ft = {
 			rust = { "rustfmt" },
-			go = { "gofumpt" },
+			go = { "goimports" },
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
@@ -140,6 +142,7 @@ later(function()
 			html = { "prettierd" },
 			css = { "prettierd" },
 			lua = { "stylua" },
+			typst = { "typstyle" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave
