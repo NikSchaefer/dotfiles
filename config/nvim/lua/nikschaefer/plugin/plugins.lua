@@ -28,6 +28,7 @@ now(function()
 			"css",
 			"markdown",
 			"markdown_inline",
+			"typst",
 		},
 		auto_install = true,
 		highlight = {
@@ -127,6 +128,7 @@ later(function()
 			"stylua",
 			"goimports",
 			"typstyle",
+			"sh",
 		},
 	})
 	-- Conform for formatting
