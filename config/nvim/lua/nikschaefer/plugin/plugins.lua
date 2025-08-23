@@ -86,7 +86,7 @@ later(function()
 	require("mason-lspconfig").setup({
 		ensure_installed = {
 			"rust_analyzer",
-			"gopls",
+			-- "gopls",
 			"ts_ls",
 			"lua_ls",
 			"html",
@@ -185,6 +185,11 @@ later(function()
 		keymap = {
 			preset = "default",
 			["<Tab>"] = { "accept", "fallback" },
+			["<C-space>"] = {
+				function(cmp)
+					cmp.show()
+				end,
+			},
 		},
 		completion = {
 			trigger = {

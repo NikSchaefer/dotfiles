@@ -1,0 +1,12 @@
+[mgr]
+show_hidden = false
+show_preview = false
+linemode = "none"
+sort_dir_first = true
+ratio = [0, 4, 0]
+
+[opener]
+edit = [
+  { run = "nvim $@", block = true, for = "macos" },
+]
+

@@ -25,6 +25,15 @@ alias ls="eza --icons"
 alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
+# Setup Yazi (f for file)
+function f() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
