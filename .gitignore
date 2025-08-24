@@ -1,2 +1,12 @@
 # Mac-OS specific
 .DS_Store
+
+# Neovim
+*.spl
+*.sug
+*.add
+*.add.spl
+**/spell/*.add
+**/spell/*.add.spl
+spell/
+

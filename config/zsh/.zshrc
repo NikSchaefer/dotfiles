@@ -16,6 +16,7 @@ plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "romkatv/powerlevel10k"
 plug "hlissner/zsh-autopair"
+plug "aloxaf/fzf-tab"
 
 autoload -U compinit; compinit
 
@@ -24,6 +25,7 @@ alias cat="bat"
 alias ls="eza --icons"
 alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
+alias g='cd $(fd -t d | fzf); clear'
 
 # Setup Yazi (f for file)
 function f() {

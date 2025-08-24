@@ -1,9 +1,4 @@
 [[mgr.prepend_keymap]]
-on = ["g", "v"]
-run = "cd ~/Code/vault"
-desc = "Go to vault"
-
-[[mgr.prepend_keymap]]
 on   = "T"
 run  = "plugin toggle-pane max-preview"
 desc = "Maximize or restore the preview pane"
