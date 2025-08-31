@@ -5,8 +5,8 @@ fi
 
 # Paths
 export BUN_INSTALL="$HOME/.bun"
-export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 # Zap
@@ -25,7 +25,6 @@ alias cat="bat"
 alias ls="eza --icons"
 alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
-alias g='cd $(fd -t d | fzf); clear'
 
 # Setup Yazi (f for file)
 function f() {
@@ -37,6 +36,7 @@ function f() {
 }
 
 # fzf
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Powerlevel10k

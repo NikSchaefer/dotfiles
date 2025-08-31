@@ -29,7 +29,7 @@ now(function()
 			"markdown",
 			"markdown_inline",
 			"typst",
-            "toml",
+			"toml",
 		},
 		auto_install = true,
 		highlight = {
@@ -95,7 +95,7 @@ later(function()
 			"emmet_ls",
 			"tailwindcss",
 			"tinymist", -- Typst
-            "taplo", -- TOML
+			"taplo", -- TOML
 		},
 		automatic_installation = true,
 		handlers = {
@@ -147,7 +147,7 @@ later(function()
 			css = { "prettierd" },
 			lua = { "stylua" },
 			typst = { "typstyle" },
-            toml = { "taplo" }
+			toml = { "taplo" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave

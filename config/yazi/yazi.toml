@@ -6,7 +6,7 @@ sort_dir_first = true
 ratio = [0, 4, 0]
 
 [opener]
-pdf = [{ run = 'tdf "$@"', block = true, for = "unix" }]
+pdf = [{ run = 'tdf "$@" -m 1 -f true', block = true, for = "unix" }]
 edit = [{ run = 'nvim "$@"', block = true, for = "unix" }]
 
 [open]
