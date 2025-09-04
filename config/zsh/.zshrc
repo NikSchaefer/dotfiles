@@ -26,6 +26,22 @@ alias ls="eza --icons"
 alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
+# fzf
+function ff() {
+    local selected=$(fd . ~ --follow --exclude .git --exclude Library --exclude Applications | fzf)
+    if [ -n "$selected" ]; then
+        if [ -d "$selected" ]; then
+            cd "$selected"
+        elif [[ "${selected:l}" == *.pdf ]]; then
+            tdf "$selected" -m 1 -f true
+        elif [[ "${selected:l}" == *.png ]]; then
+            open "$selected"
+        else
+            nvim "$selected"
+        fi
+    fi
+}
+
 # Setup Yazi (f for file)
 function f() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -36,9 +52,8 @@ function f() {
 }
 
 # fzf
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
+export IFX_TOOLBOX_UUID=97e4e1b6-cc54-3474-a522-f6e375f4c8f7

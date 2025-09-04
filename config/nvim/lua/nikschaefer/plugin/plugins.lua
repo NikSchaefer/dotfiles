@@ -202,6 +202,42 @@ later(function()
 	})
 end)
 
+-- Harpoon
+later(function()
+	add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2", depends = { "nvim-lua/plenary.nvim" } })
+	local harpoon = require("harpoon")
+
+	harpoon:setup()
+
+	vim.keymap.set("n", "<leader>a", function()
+		harpoon:list():add()
+	end)
+	vim.keymap.set("n", "<C-e>", function()
+		harpoon.ui:toggle_quick_menu(harpoon:list())
+	end)
+
+	vim.keymap.set("n", "<C-h>", function()
+		harpoon:list():select(1)
+	end)
+	vim.keymap.set("n", "<C-t>", function()
+		harpoon:list():select(2)
+	end)
+	vim.keymap.set("n", "<C-n>", function()
+		harpoon:list():select(3)
+	end)
+	vim.keymap.set("n", "<C-s>", function()
+		harpoon:list():select(4)
+	end)
+
+	-- Toggle previous & next buffers stored within Harpoon list
+	vim.keymap.set("n", "<C-S-P>", function()
+		harpoon:list():prev()
+	end)
+	vim.keymap.set("n", "<C-S-N>", function()
+		harpoon:list():next()
+	end)
+end)
+
 later(function()
 	add("fmolke/zen-mode.nvim")
 	require("zen-mode").setup({
@@ -211,3 +247,39 @@ later(function()
 	})
 	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
+
+-- -- Avante (AI)
+-- add({
+-- 	source = "yetone/avante.nvim",
+-- 	monitor = "main",
+-- 	depends = {
+-- 		"nvim-lua/plenary.nvim",
+-- 		"MunifTanjim/nui.nvim",
+-- 		"echasnovski/mini.icons",
+-- 	},
+-- 	hooks = {
+-- 		post_checkout = function()
+-- 			vim.cmd("make")
+-- 		end,
+-- 	},
+-- })
+-- --- optional
+-- add({ source = "hrsh7th/nvim-cmp" })
+-- add({ source = "zbirenbaum/copilot.lua" })
+-- add({ source = "HakonHarnes/img-clip.nvim" })
+-- add({ source = "MeanderingProgrammer/render-markdown.nvim" })
+--
+-- later(function()
+-- 	require("render-markdown").setup({})
+-- end)
+--
+-- later(function()
+-- 	require("img-clip").setup({}) -- config img-clip
+-- 	require("copilot").setup({
+-- 		auto_trigger = true,
+-- 		suggestion = {
+-- 			enabled = true,
+-- 		},
+-- 	})
+-- 	require("avante").setup({}) -- config for avante.nvim
+-- end)
