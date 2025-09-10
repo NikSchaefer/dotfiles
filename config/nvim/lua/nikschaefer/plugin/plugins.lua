@@ -30,6 +30,7 @@ now(function()
 			"markdown_inline",
 			"typst",
 			"toml",
+			"java",
 		},
 		auto_install = true,
 		highlight = {
@@ -96,6 +97,7 @@ later(function()
 			"tailwindcss",
 			"tinymist", -- Typst
 			"taplo", -- TOML
+			"jdtls",
 		},
 		automatic_installation = true,
 		handlers = {
@@ -131,6 +133,7 @@ later(function()
 			"goimports",
 			"typstyle",
 			"sh",
+			"google-java-format",
 		},
 	})
 	-- Conform for formatting
@@ -148,6 +151,7 @@ later(function()
 			lua = { "stylua" },
 			typst = { "typstyle" },
 			toml = { "taplo" },
+			java = { "google-java-format" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave
@@ -165,12 +169,7 @@ end)
 later(function()
 	add("rachartier/tiny-inline-diagnostic.nvim")
 	require("tiny-inline-diagnostic").setup()
-	vim.diagnostic.config({
-		virtual_text = false, -- tiny-inline-diagnostic replaces this
-		signs = true,
-		underline = true,
-		update_in_insert = false,
-	})
+	vim.diagnostic.config({ virtual_text = false })
 end)
 
 later(function()
@@ -179,26 +178,8 @@ later(function()
 		depends = { "rafamadriz/friendly-snippets" },
 	})
 	require("blink.cmp").setup({
-		fuzzy = {
-			implementation = "lua",
-		},
-		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
-		},
-		keymap = {
-			preset = "default",
-			["<Tab>"] = { "accept", "fallback" },
-			["<C-space>"] = {
-				function(cmp)
-					cmp.show()
-				end,
-			},
-		},
-		completion = {
-			trigger = {
-				show_on_insert_on_trigger_character = true,
-			},
-		},
+		fuzzy = { implementation = "lua" },
+		keymap = { preset = "super-tab" },
 	})
 end)
 
@@ -247,6 +228,13 @@ later(function()
 	})
 	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
+
+-- later(function()
+--     add("zbirenbaum/copilot.lua")
+--     require("copilot").setup({
+--         auto_trigger = true,
+--     })
+-- end)
 
 -- -- Avante (AI)
 -- add({
