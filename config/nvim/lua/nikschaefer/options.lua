@@ -1,7 +1,7 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.opt.laststatus = 0
+-- vim.opt.laststatus = 0
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
