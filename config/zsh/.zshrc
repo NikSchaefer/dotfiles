@@ -5,9 +5,10 @@ fi
 
 # Paths
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.bun/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
@@ -26,18 +27,23 @@ alias ls="eza --icons"
 alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
-# fzf
+# fzf - general file finder from anywhere
 function ff() {
-    local selected=$(fd . ~ --follow --exclude .git --exclude Library --exclude Applications | fzf)
+    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --exclude go | fzf)
     if [ -n "$selected" ]; then
         if [ -d "$selected" ]; then
             cd "$selected"
-        elif [[ "${selected:l}" == *.pdf ]]; then
-            tdf "$selected" -m 1 -f true
-        elif [[ "${selected:l}" == *.png ]]; then
-            open "$selected"
         else
-            nvim "$selected"
+            # Change to the file's directory first
+            local dir=$(dirname "$selected")
+            cd "$dir"
+            # Open file based on extension
+            case "${selected:l}" in
+                *.pdf) tdf "$selected" -m 1 -f true ;;
+                *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff) open "$selected" ;;
+                *.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v) open "$selected" ;;
+                *) nvim "$selected" ;;
+            esac
         fi
     fi
 }
@@ -56,4 +62,3 @@ function f() {
 
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export IFX_TOOLBOX_UUID=97e4e1b6-cc54-3474-a522-f6e375f4c8f7

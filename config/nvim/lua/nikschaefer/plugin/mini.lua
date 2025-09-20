@@ -16,9 +16,9 @@ now(function()
 	require("mini.notify").setup()
 end)
 
-now(function()
-	require("mini.statusline").setup()
-end)
+-- now(function()
+-- 	require("mini.statusline").setup()
+-- end)
 
 now(function()
 	require("mini.tabline").setup()
@@ -28,11 +28,11 @@ now(function()
 	require("mini.extra").setup()
 end)
 
-now(function()
-	require("mini.starter").setup({
-		footer = " ",
-	})
-end)
+-- now(function()
+-- 	require("mini.starter").setup({
+-- 		footer = " ",
+-- 	})
+-- end)
 
 -- Lazy loaded Mini packages
 

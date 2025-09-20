@@ -40,6 +40,11 @@ now(function()
 			enable = true,
 		},
 	})
+
+	-- Add syntax highlighting for recfiles
+	add({
+		source = "nikschaefer/recfiles.nvim",
+	})
 end)
 
 -- Auto pairs for HTML/JSX tags and general pairs
@@ -97,7 +102,7 @@ later(function()
 			"tailwindcss",
 			"tinymist", -- Typst
 			"taplo", -- TOML
-			"jdtls",
+			"jdtls", -- Java
 		},
 		automatic_installation = true,
 		handlers = {
@@ -146,6 +151,7 @@ later(function()
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			typescriptreact = { "prettierd" },
+			json = { "prettierd" },
 			html = { "prettierd" },
 			css = { "prettierd" },
 			lua = { "stylua" },
@@ -229,45 +235,47 @@ later(function()
 	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
 
--- later(function()
---     add("zbirenbaum/copilot.lua")
---     require("copilot").setup({
---         auto_trigger = true,
---     })
--- end)
+later(function()
+	add({
+		source = "zbirenbaum/copilot.lua",
+		hooks = {
+			post_checkout = function()
+				vim.cmd("Copilot auth")
+			end,
+		},
+	})
+	-- Setup Copilot with Tab/Esc keybinds
+	require("copilot").setup({
+		suggestion = {
+			enabled = true,
+			auto_trigger = true,
+			keymap = {
+				accept = "<Tab>",
+				dismiss = "<Esc>",
+				next = "<M-]>",
+				prev = "<M-[>",
+			},
+		},
+		panel = { enabled = false },
+	})
 
--- -- Avante (AI)
--- add({
--- 	source = "yetone/avante.nvim",
--- 	monitor = "main",
--- 	depends = {
--- 		"nvim-lua/plenary.nvim",
--- 		"MunifTanjim/nui.nvim",
--- 		"echasnovski/mini.icons",
--- 	},
--- 	hooks = {
--- 		post_checkout = function()
--- 			vim.cmd("make")
--- 		end,
--- 	},
--- })
--- --- optional
--- add({ source = "hrsh7th/nvim-cmp" })
--- add({ source = "zbirenbaum/copilot.lua" })
--- add({ source = "HakonHarnes/img-clip.nvim" })
--- add({ source = "MeanderingProgrammer/render-markdown.nvim" })
---
--- later(function()
--- 	require("render-markdown").setup({})
--- end)
---
--- later(function()
--- 	require("img-clip").setup({}) -- config img-clip
--- 	require("copilot").setup({
--- 		auto_trigger = true,
--- 		suggestion = {
--- 			enabled = true,
--- 		},
--- 	})
--- 	require("avante").setup({}) -- config for avante.nvim
--- end)
+	-- Handle Tab conflict between Copilot and blink.cmp
+	vim.keymap.set("i", "<Tab>", function()
+		local copilot = require("copilot.suggestion")
+		if copilot.is_visible() then
+			copilot.accept()
+		else
+			return vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+		end
+	end, { expr = true, silent = true })
+
+	-- Handle Esc for dismissing Copilot suggestions
+	vim.keymap.set("i", "<Esc>", function()
+		local copilot = require("copilot.suggestion")
+		if copilot.is_visible() then
+			copilot.dismiss()
+		else
+			return vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+		end
+	end, { expr = true, silent = true })
+end)
