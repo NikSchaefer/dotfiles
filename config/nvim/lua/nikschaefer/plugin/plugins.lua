@@ -244,38 +244,17 @@ later(function()
 			end,
 		},
 	})
-	-- Setup Copilot with Tab/Esc keybinds
+	-- Setup Copilot with Ctrl+l to accept and Ctrl+h to dismiss
 	require("copilot").setup({
 		suggestion = {
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept = "<S-Tab>",
-				dismiss = "<Esc>",
-				next = "<M-]>",
-				prev = "<M-[>",
+				accept = "<C-l>",
+				dismiss = "<C-h>",
 			},
 		},
 		panel = { enabled = false },
 	})
-
-	-- Handle Shift+Tab for Copilot suggestions, Tab for blink.cmp
-	vim.keymap.set("i", "<S-Tab>", function()
-		local copilot = require("copilot.suggestion")
-		if copilot.is_visible() then
-			copilot.accept()
-		else
-			return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
-		end
-	end, { expr = true, silent = true })
-
-	-- Handle Esc for dismissing Copilot suggestions
-	vim.keymap.set("i", "<Esc>", function()
-		local copilot = require("copilot.suggestion")
-		if copilot.is_visible() then
-			copilot.dismiss()
-		else
-			return vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
-		end
-	end, { expr = true, silent = true })
 end)
+

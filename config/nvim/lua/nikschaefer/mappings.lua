@@ -1,9 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
--- Yanks go to your OS clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>Y", [["+Y]], { desc = "Yank to system clipboard" })
 
 -- Deletes without copying to clipboard
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })

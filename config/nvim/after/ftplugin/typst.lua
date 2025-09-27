@@ -4,17 +4,17 @@ vim.opt.wrap = true
 vim.keymap.set("n", "<leader>tw", function()
 	local filename = vim.fn.expand("%")
 	if vim.fn.fnamemodify(filename, ":e") == "typ" then
-		vim.fn.jobstart({ "typst", "watch", filename }, {
-			detach = true,
+		typst_job_id = vim.fn.jobstart({ "typst", "watch", filename }, {
 			on_exit = function(job_id, exit_code)
 				if exit_code == 0 then
 					print("Typst watch stopped")
 				else
 					print("Typst watch failed with code: " .. exit_code)
 				end
+				typst_job_id = nil
 			end,
 		})
-		print("Started typst watch for " .. filename)
+		vim.notify("Started typst watch for " .. filename, vim.log.levels.INFO)
 	else
 		print("Not a Typst file")
 	end
