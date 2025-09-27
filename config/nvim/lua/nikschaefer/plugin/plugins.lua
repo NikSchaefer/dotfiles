@@ -250,7 +250,7 @@ later(function()
 			enabled = true,
 			auto_trigger = true,
 			keymap = {
-				accept = "<Tab>",
+				accept = "<S-Tab>",
 				dismiss = "<Esc>",
 				next = "<M-]>",
 				prev = "<M-[>",
@@ -259,13 +259,13 @@ later(function()
 		panel = { enabled = false },
 	})
 
-	-- Handle Tab conflict between Copilot and blink.cmp
-	vim.keymap.set("i", "<Tab>", function()
+	-- Handle Shift+Tab for Copilot suggestions, Tab for blink.cmp
+	vim.keymap.set("i", "<S-Tab>", function()
 		local copilot = require("copilot.suggestion")
 		if copilot.is_visible() then
 			copilot.accept()
 		else
-			return vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+			return vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
 		end
 	end, { expr = true, silent = true })
 
