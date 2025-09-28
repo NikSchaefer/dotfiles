@@ -80,6 +80,17 @@ later(function()
 		source = "neovim/nvim-lspconfig",
 		depends = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
 	})
+
+	-- Completion engine
+	add({
+		source = "saghen/blink.cmp",
+		depends = { "rafamadriz/friendly-snippets" },
+	})
+	require("blink.cmp").setup({
+		fuzzy = { implementation = "lua" },
+		keymap = { preset = "super-tab" },
+	})
+
 	-- Installer for LSP, formatters, linters, etc
 	add("williamboman/mason.nvim")
 	require("mason").setup()
@@ -105,28 +116,6 @@ later(function()
 			"jdtls", -- Java
 		},
 		automatic_installation = true,
-		handlers = {
-			function(server_name)
-				local capabilities = require("blink.cmp").get_lsp_capabilities()
-				local config = {
-					capabilities = capabilities,
-					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", buffer = bufnr })
-						vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "More information", buffer = bufnr })
-						vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references", buffer = bufnr })
-						vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename", buffer = bufnr })
-						vim.keymap.set(
-							"n",
-							"<leader>ca",
-							vim.lsp.buf.code_action,
-							{ desc = "Code action", buffer = bufnr }
-						)
-					end,
-				}
-
-				require("lspconfig")[server_name].setup(config)
-			end,
-		},
 	})
 	-- Ensure installed formatters
 	add("WhoIsSethDaniel/mason-tool-installer.nvim")
@@ -137,7 +126,6 @@ later(function()
 			"stylua",
 			"goimports",
 			"typstyle",
-			"sh",
 			"google-java-format",
 		},
 	})
@@ -167,26 +155,12 @@ later(function()
 			return { lsp_fallback = true }
 		end,
 	})
-	vim.keymap.set("n", "<leader>ss", function()
-		require("conform").format()
-	end, { desc = "Format file" })
 end)
 
 later(function()
 	add("rachartier/tiny-inline-diagnostic.nvim")
 	require("tiny-inline-diagnostic").setup()
 	vim.diagnostic.config({ virtual_text = false })
-end)
-
-later(function()
-	add({
-		source = "saghen/blink.cmp",
-		depends = { "rafamadriz/friendly-snippets" },
-	})
-	require("blink.cmp").setup({
-		fuzzy = { implementation = "lua" },
-		keymap = { preset = "super-tab" },
-	})
 end)
 
 -- Harpoon
@@ -257,4 +231,3 @@ later(function()
 		panel = { enabled = false },
 	})
 end)
-

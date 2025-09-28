@@ -37,7 +37,23 @@ end)
 -- Lazy loaded Mini packages
 
 later(function()
-	require("mini.ai").setup()
+	local ai = require("mini.ai")
+	require("mini.ai").setup({
+		custom_textobjects = {
+			o = ai.gen_spec.treesitter({ -- code block
+				a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+				i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+			}),
+			f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+			c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+			t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+			d = { "%f[%d]%d+" }, -- digits
+			e = { -- Word with case
+				{ "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+				"^().*()$",
+			},
+		},
+	})
 end)
 later(function()
 	require("mini.align").setup()
@@ -47,39 +63,7 @@ later(function()
 end)
 later(function()
 	local miniclue = require("mini.clue")
-	miniclue.setup({
-		clues = {
-			miniclue.gen_clues.builtin_completion(),
-			miniclue.gen_clues.g(),
-			miniclue.gen_clues.marks(),
-			miniclue.gen_clues.registers(),
-			miniclue.gen_clues.windows(),
-			miniclue.gen_clues.z(),
-		},
-		triggers = {
-			{ mode = "n", keys = "<Leader>" }, -- Leader triggers
-			{ mode = "x", keys = "<Leader>" },
-			{ mode = "n", keys = [[\]] }, -- mini.basics
-			{ mode = "n", keys = "[" }, -- mini.bracketed
-			{ mode = "n", keys = "]" },
-			{ mode = "x", keys = "[" },
-			{ mode = "x", keys = "]" },
-			{ mode = "i", keys = "<C-x>" }, -- Built-in completion
-			{ mode = "n", keys = "g" }, -- `g` key
-			{ mode = "x", keys = "g" },
-			{ mode = "n", keys = "'" }, -- Marks
-			{ mode = "n", keys = "`" },
-			{ mode = "x", keys = "'" },
-			{ mode = "x", keys = "`" },
-			{ mode = "n", keys = '"' }, -- Registers
-			{ mode = "x", keys = '"' },
-			{ mode = "i", keys = "<C-r>" },
-			{ mode = "c", keys = "<C-r>" },
-			{ mode = "n", keys = "<C-w>" }, -- Window commands
-			{ mode = "n", keys = "z" }, -- `z` key
-			{ mode = "x", keys = "z" },
-		},
-	})
+	miniclue.setup()
 end)
 
 later(function()

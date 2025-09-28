@@ -19,3 +19,19 @@ vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
 		end)
 	end,
 })
+
+-- LSP keymaps
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local bufnr = args.buf
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+		vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
+
+        vim.keymap.set("n", "<leader>ss", function()
+            require("conform").format({ lsp_fallback = true })
+        end, { buffer = bufnr, desc = "Format file" })
+	end,
+})

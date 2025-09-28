@@ -16,3 +16,10 @@ vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to left window" })
 vim.keymap.set("n", "<leader>j", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<leader>k", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<leader>l", "<C-w>l", { desc = "Move to right window" })
+
+-- Navigate buffers
+vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>bp", ":bufdo bd except #<CR>", { desc = "Close all other buffers" })
+
