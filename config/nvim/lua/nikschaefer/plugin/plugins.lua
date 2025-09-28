@@ -41,6 +41,11 @@ now(function()
 		},
 	})
 
+	add({
+		source = "nvim-treesitter/nvim-treesitter-textobjects",
+		checkout = "main",
+	})
+
 	-- Add syntax highlighting for recfiles
 	add({
 		source = "nikschaefer/recfiles.nvim",
