@@ -235,4 +235,7 @@ later(function()
 		},
 		panel = { enabled = false },
 	})
+
+	-- Add toggle for copilot
+	vim.keymap.set("n", "<leader>tc", ":Copilot toggle<CR>", { desc = "Toggle Copilot suggestions" })
 end)

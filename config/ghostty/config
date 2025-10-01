@@ -1,6 +1,6 @@
 theme = tokyonight
 # theme = catppuccin-macchiato
-background-opacity = 0.80
+background-opacity = 0.85
 background-blur-radius = 40
 font-size = 18
 
