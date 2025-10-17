@@ -1,5 +1,8 @@
 vim.g.mapleader = " "
 
+-- Map Ctrl-j to escape in insert mode
+vim.keymap.set("i", "<C-j>", "<Esc>", { desc = "Exit insert mode" })
+
 -- Deletes without copying to clipboard
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })
 

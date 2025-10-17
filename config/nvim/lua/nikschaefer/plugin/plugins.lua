@@ -31,6 +31,8 @@ now(function()
 			"typst",
 			"toml",
 			"java",
+			"python",
+			"make",
 		},
 		auto_install = true,
 		highlight = {
@@ -119,6 +121,7 @@ later(function()
 			"tinymist", -- Typst
 			"taplo", -- TOML
 			"jdtls", -- Java
+			"ty", -- Python
 		},
 		automatic_installation = true,
 	})
@@ -132,6 +135,7 @@ later(function()
 			"goimports",
 			"typstyle",
 			"google-java-format",
+			"ruff", -- Python
 		},
 	})
 	-- Conform for formatting
@@ -151,6 +155,7 @@ later(function()
 			typst = { "typstyle" },
 			toml = { "taplo" },
 			java = { "google-java-format" },
+			python = { "ruff" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave

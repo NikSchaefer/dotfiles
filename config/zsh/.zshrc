@@ -28,25 +28,32 @@ alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # fzf - general file finder from anywhere
-function ff() {
+fuzzy-find() {
     local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --exclude go | fzf)
     if [ -n "$selected" ]; then
         if [ -d "$selected" ]; then
-            cd "$selected"
+            BUFFER="cd $(printf %q "$selected")"
         else
-            # Change to the file's directory first
             local dir=$(dirname "$selected")
-            cd "$dir"
-            # Open file based on extension
             case "${selected:l}" in
-                *.pdf) tdf "$selected" -m 1 -f true ;;
-                *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff) open "$selected" ;;
-                *.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v) open "$selected" ;;
-                *) nvim "$selected" ;;
+                *.pdf)
+                    BUFFER="cd $(printf %q "$dir"); tdf $(printf %q "$selected") -m 1 -f true"
+                    ;;
+                *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff|*.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v)
+                    BUFFER="cd $(printf %q "$dir"); open $(printf %q "$selected")"
+                    ;;
+                *)
+                    BUFFER="cd $(printf %q "$dir"); nvim $(printf %q "$selected")"
+                    ;;
             esac
         fi
+        zle accept-line
+    else
+        zle reset-prompt
     fi
 }
+zle -N fuzzy-find
+bindkey '^F' fuzzy-find
 
 # Setup Yazi (f for file)
 function f() {

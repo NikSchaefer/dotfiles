@@ -12,7 +12,7 @@ window-padding-y = 6
 window-height = 22
 window-width = 80
 window-position-x = 300
-window-position-y = 200
+window-position-y = 150
 
 quit-after-last-window-closed = true
 confirm-close-surface = false
@@ -31,5 +31,5 @@ keybind = super+k=goto_split:up
 keybind = super+l=goto_split:right
 
 keybind = super+;=clear_screen
-
+keybind = super+f=text:\x06
 
