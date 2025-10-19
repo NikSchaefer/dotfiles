@@ -9,6 +9,7 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
 
 # Zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
@@ -24,12 +25,11 @@ autoload -U compinit; compinit
 alias v="nvim"
 alias cat="bat"
 alias ls="eza --icons"
-alias la="eza -A --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # fzf - general file finder from anywhere
 fuzzy-find() {
-    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --no-ignore '\.pdf$' | fzf)
+    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications | fzf)
     if [ -n "$selected" ]; then
         if [ -d "$selected" ]; then
             BUFFER="cd $(printf %q "$selected")"
@@ -63,9 +63,6 @@ function f() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

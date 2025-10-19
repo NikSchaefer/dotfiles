@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Script to save an image from the clipboard to a PNG file
+
+# Use provided filename or generate timestamp-based one
+if [ -n "$1" ]; then
+    filename="$1"
+    # Add .png extension if not present
+    if [[ "$filename" != *.png ]]; then
+        filename="${filename}.png"
+    fi
+else
+    timestamp=$(date +"%Y-%m-%d")
+    filename="${timestamp}.png"
+fi
+
+# Use AppleScript to check clipboard and save image
+osascript <<EOF
+set theFile to (POSIX file "$(pwd)/$filename")
+try
+    set imageData to the clipboard as «class PNGf»
+    set fileRef to open for access theFile with write permission
+    set eof fileRef to 0
+    write imageData to fileRef
+    close access fileRef
+on error
+    try
+        close access theFile
+    end try
+    error "No image in clipboard"
+end try
+EOF
+
+if [ $? -eq 0 ]; then
+    echo "Image saved as: $filename"
+else
+    echo "Error: No image in clipboard"
+    exit 1
+fi
