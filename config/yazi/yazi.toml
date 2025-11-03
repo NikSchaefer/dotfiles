@@ -7,14 +7,12 @@ ratio = [0, 4, 0]
 
 [opener]
 pdf = [{ run = 'tdf "$@" -m 1 -f true', block = true, for = "unix" }]
-image = [{ run = 'open "$@"', block = false, for = "unix" }]
-video = [{ run = 'open "$@"', block = false, for = "unix" }]
+open = [{ run = 'open "$@"', block = false, for = "unix" }]
 edit = [{ run = 'nvim "$@"', block = true, for = "unix" }]
 
 [open]
 rules = [
   { name = "*.pdf", use = "pdf" },
-  { name = "*.{jpg,jpeg,png,gif,bmp,webp,tiff,svg}", use = "image" },
-  { name = "*.{mp4,avi,mov,mkv,webm,flv,wmv,m4v}", use = "video" },
+  { name = "*.{jpg,jpeg,png,gif,bmp,webp,tiff,svg,mp4,avi,mov,mkv,webm,flv,wmv,m4v}", use = "open" },
   { name = "*", use = "edit" },
 ]
