@@ -48,22 +48,9 @@ now(function()
     })
 end)
 
--- Auto pairs for HTML/JSX tags and general pairs
+-- Auto pairs for HTML/JSX tags
 later(function()
-    add("windwp/nvim-autopairs")
     add("windwp/nvim-ts-autotag")
-
-    -- Setup auto-pairs
-    require("nvim-autopairs").setup({
-        check_ts = true,
-        ts_config = {
-            lua = { "string" },
-            javascript = { "string", "template_string" },
-            typescript = { "string", "template_string" },
-            tsx = { "string", "template_string" },
-            jsx = { "string", "template_string" },
-        },
-    })
     -- Setup auto-tag for HTML/JSX
     require("nvim-ts-autotag").setup({
         opts = {
