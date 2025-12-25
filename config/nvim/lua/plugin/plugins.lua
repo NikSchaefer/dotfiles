@@ -16,7 +16,7 @@ end)
 -- Treesitter
 now(function()
 	add("nvim-treesitter/nvim-treesitter")
-	require("nvim-treesitter.configs").setup({
+	require("nvim-treesitter").setup({
 		ensure_installed = {
 			"rust",
 			"go",
@@ -30,7 +30,6 @@ now(function()
 			"markdown_inline",
 			"typst",
 			"toml",
-			"java",
 			"python",
 			"make",
 		},
@@ -46,11 +45,6 @@ now(function()
 	add({
 		source = "nvim-treesitter/nvim-treesitter-textobjects",
 		checkout = "main",
-	})
-
-	-- Add syntax highlighting for recfiles
-	add({
-		source = "nikschaefer/recfiles.nvim",
 	})
 end)
 
@@ -120,7 +114,6 @@ later(function()
 			"tailwindcss",
 			"tinymist", -- Typst
 			"taplo", -- TOML
-			"jdtls", -- Java
 			"ty", -- Python
 		},
 		automatic_installation = true,
@@ -134,7 +127,6 @@ later(function()
 			"stylua",
 			"goimports",
 			"typstyle",
-			"google-java-format",
 			"ruff", -- Python
 		},
 	})
@@ -154,7 +146,6 @@ later(function()
 			lua = { "stylua" },
 			typst = { "typstyle" },
 			toml = { "taplo" },
-			java = { "google-java-format" },
 			python = { "ruff" },
 		},
 		format_on_save = function()
@@ -210,7 +201,7 @@ later(function()
 end)
 
 later(function()
-	add("fmolke/zen-mode.nvim")
+	add("folke/zen-mode.nvim")
 	require("zen-mode").setup({
 		window = {
 			width = 85,
@@ -219,28 +210,3 @@ later(function()
 	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
 
-later(function()
-	add({
-		source = "zbirenbaum/copilot.lua",
-		hooks = {
-			post_checkout = function()
-				vim.cmd("Copilot auth")
-			end,
-		},
-	})
-	-- Setup Copilot with Ctrl+l to accept and Ctrl+h to dismiss
-	require("copilot").setup({
-		suggestion = {
-			enabled = true,
-			auto_trigger = true,
-			keymap = {
-				accept = "<C-l>",
-				dismiss = "<C-h>",
-			},
-		},
-		panel = { enabled = false },
-	})
-
-	-- Add toggle for copilot
-	vim.keymap.set("n", "<leader>tc", ":Copilot toggle<CR>", { desc = "Toggle Copilot suggestions" })
-end)

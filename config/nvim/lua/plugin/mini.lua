@@ -28,12 +28,6 @@ now(function()
 	require("mini.extra").setup()
 end)
 
--- now(function()
--- 	require("mini.starter").setup({
--- 		footer = " ",
--- 	})
--- end)
-
 -- Lazy loaded Mini packages
 
 later(function()
