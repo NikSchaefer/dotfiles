@@ -5,155 +5,194 @@ add({ name = "mini.nvim" })
 -- Mini packages
 
 now(function()
-	require("mini.basics").setup()
+    require("mini.basics").setup()
 end)
 
 now(function()
-	require("mini.sessions").setup()
+    require("mini.sessions").setup()
 end)
 
 now(function()
-	require("mini.notify").setup()
+    require("mini.notify").setup()
 end)
 
 now(function()
-	require("mini.tabline").setup()
+    require("mini.tabline").setup()
 end)
 
 now(function()
-	require("mini.extra").setup()
+    require("mini.extra").setup()
 end)
 
 -- Lazy loaded Mini packages
 
 later(function()
-	local ai = require("mini.ai")
-	require("mini.ai").setup({
-		custom_textobjects = {
-			o = ai.gen_spec.treesitter({ -- code block
-				a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-				i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-			}),
-			f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-			c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
-			t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-			d = { "%f[%d]%d+" }, -- digits
-			e = { -- Word with case
-				{ "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
-				"^().*()$",
-			},
-		},
-	})
+    local ai = require("mini.ai")
+    require("mini.ai").setup({
+        custom_textobjects = {
+            o = ai.gen_spec.treesitter({ -- code block
+                a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+                i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+            }),
+            f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+            c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+            t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },  -- tags
+            d = { "%f[%d]%d+" },                                                 -- digits
+            e = {                                                                -- Word with case
+                { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+                "^().*()$",
+            },
+        },
+    })
 end)
 later(function()
-	require("mini.align").setup()
+    require("mini.align").setup()
 end)
 later(function()
-	require("mini.bracketed").setup()
+    require("mini.bracketed").setup()
 end)
 later(function()
-	local miniclue = require("mini.clue")
-	miniclue.setup()
-end)
-
-later(function()
-	require("mini.comment").setup()
-end)
-
-later(function()
-	require("mini.diff").setup()
-end)
-later(function()
-	require("mini.files").setup()
-	vim.keymap.set("n", "<leader>e", function()
-		local MiniFiles = require("mini.files")
-		if MiniFiles.BUF_ID then -- Check if mini.files is currently open
-			MiniFiles.close()
-		else
-			-- Open at root but at this file
-			local buf_name = vim.api.nvim_buf_get_name(0)
-			local path = (buf_name ~= "" and not buf_name:match("^%w+://")) and buf_name or nil
-
-			local _ = MiniFiles.close() or MiniFiles.open(path, false)
-			vim.defer_fn(function()
-				MiniFiles.reveal_cwd()
-			end, 30)
-		end
-	end, { desc = "Open file explorer" })
-end)
-
-later(function()
-	require("mini.git").setup()
-end)
-later(function()
-	require("mini.hipatterns").setup()
-end)
-later(function()
-	require("mini.indentscope").setup()
-end)
-later(function()
-	require("mini.jump").setup()
-end)
-later(function()
-	require("mini.jump2d").setup()
-end)
-later(function()
-	require("mini.keymap").setup()
+    local miniclue = require("mini.clue")
+    miniclue.setup({
+        triggers = {
+            -- Leader triggers
+            { mode = 'n', keys = '<Leader>' },
+            { mode = 'x', keys = '<Leader>' },
+            -- `[` and `]` keys
+            { mode = 'n', keys = '[' },
+            { mode = 'n', keys = ']' },
+            -- Built-in completion
+            { mode = 'i', keys = '<C-x>' },
+            -- `g` key
+            { mode = 'n', keys = 'g' },
+            { mode = 'x', keys = 'g' },
+            -- Marks
+            { mode = 'n', keys = "'" },
+            { mode = 'n', keys = '`' },
+            { mode = 'x', keys = "'" },
+            { mode = 'x', keys = '`' },
+            -- Registers
+            { mode = 'n', keys = '"' },
+            { mode = 'x', keys = '"' },
+            { mode = 'i', keys = '<C-r>' },
+            { mode = 'c', keys = '<C-r>' },
+            -- Window commands
+            { mode = 'n', keys = '<C-w>' },
+            -- `z` key
+            { mode = 'n', keys = 'z' },
+            { mode = 'x', keys = 'z' },
+        },
+        clues = {
+            -- Enhance this by adding descriptions for <Leader> mapping groups
+            miniclue.gen_clues.square_brackets(),
+            miniclue.gen_clues.builtin_completion(),
+            miniclue.gen_clues.g(),
+            miniclue.gen_clues.marks(),
+            miniclue.gen_clues.registers(),
+            miniclue.gen_clues.windows(),
+            miniclue.gen_clues.z(),
+        },
+    })
 end)
 
 later(function()
-	require("mini.move").setup()
+    require("mini.comment").setup()
+end)
+
+later(function()
+    require("mini.diff").setup()
 end)
 later(function()
-	require("mini.misc").setup()
+    require("mini.files").setup()
+    vim.keymap.set("n", "<leader>e", function()
+        local MiniFiles = require("mini.files")
+        if MiniFiles.BUF_ID then -- Check if mini.files is currently open
+            MiniFiles.close()
+        else
+            -- Open at root but at this file
+            local buf_name = vim.api.nvim_buf_get_name(0)
+            local path = (buf_name ~= "" and not buf_name:match("^%w+://")) and buf_name or nil
+
+            local _ = MiniFiles.close() or MiniFiles.open(path, false)
+            vim.defer_fn(function()
+                MiniFiles.reveal_cwd()
+            end, 30)
+        end
+    end, { desc = "Open file explorer" })
+end)
+
+later(function()
+    require("mini.git").setup()
 end)
 later(function()
-	require("mini.operators").setup()
+    require("mini.hipatterns").setup()
 end)
 later(function()
-	require("mini.pairs").setup()
+    require("mini.indentscope").setup()
 end)
 later(function()
-	require("mini.icons").setup()
+    require("mini.jump").setup()
+end)
+later(function()
+    require("mini.jump2d").setup()
+end)
+later(function()
+    require("mini.keymap").setup()
+end)
+
+later(function()
+    require("mini.move").setup()
+end)
+later(function()
+    require("mini.misc").setup()
+end)
+later(function()
+    require("mini.operators").setup()
+end)
+later(function()
+    require("mini.pairs").setup()
+end)
+later(function()
+    require("mini.icons").setup()
 end)
 
 -- Note: Ensure ripgrep is installed on system
 later(function()
-	require("mini.pick").setup({
-		window = {
-			config = function()
-				local height = math.floor(vim.o.lines * 0.6) -- 60% of screen height
-				local relative_width = math.floor(vim.o.columns * 0.8) -- 80% of screen width
-				local width = math.min(relative_width, 70)
+    require("mini.pick").setup({
+        window = {
+            config = function()
+                local height = math.floor(vim.o.lines * 0.6) -- 60% of screen height
+                local relative_width = math.floor(vim.o.columns * 0.8) -- 80% of screen width
+                local width = math.min(relative_width, 70)
 
-				return {
-					anchor = "NW",
-					height = height,
-					width = width,
-					row = math.floor((vim.o.lines - height) / 2),
-					col = math.floor((vim.o.columns - width) / 2),
-				}
-			end,
-		},
-	})
+                return {
+                    anchor = "NW",
+                    height = height,
+                    width = width,
+                    row = math.floor((vim.o.lines - height) / 2),
+                    col = math.floor((vim.o.columns - width) / 2),
+                }
+            end,
+        },
+    })
 
-	local map = vim.keymap.set
-	map("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find Files" })
-	map("n", "<leader>fg", "<cmd>Pick grep_live<cr>", { desc = "Live Grep" })
-	map("n", "<leader>fb", "<cmd>Pick buffers<cr>", { desc = "Find Buffers" })
-	map("n", "<leader>fh", "<cmd>Pick help<cr>", { desc = "Find Help" })
-	map("n", "<leader>fr", "<cmd>Pick oldfiles<cr>", { desc = "Recent Files" })
-	map("n", "<leader><leader>", "<cmd>Pick files<cr>", { desc = "Find Files" })
+    local map = vim.keymap.set
+    map("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find Files" })
+    map("n", "<leader>fg", "<cmd>Pick grep_live<cr>", { desc = "Live Grep" })
+    map("n", "<leader>fb", "<cmd>Pick buffers<cr>", { desc = "Find Buffers" })
+    map("n", "<leader>fh", "<cmd>Pick help<cr>", { desc = "Find Help" })
+    map("n", "<leader>fr", "<cmd>Pick oldfiles<cr>", { desc = "Recent Files" })
+    map("n", "<leader><leader>", "<cmd>Pick files<cr>", { desc = "Find Files" })
 end)
 later(function()
-	require("mini.snippets").setup()
+    require("mini.snippets").setup()
 end)
 later(function()
-	require("mini.splitjoin").setup()
+    require("mini.splitjoin").setup()
 end)
 later(function()
-	require("mini.surround").setup()
+    require("mini.surround").setup()
 end)
 later(function()
-	require("mini.trailspace").setup()
+    require("mini.trailspace").setup()
 end)

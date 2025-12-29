@@ -24,6 +24,7 @@ now(function()
             "typescript",
             "tsx",
             "lua",
+            "json",
             "html",
             "css",
             "markdown",
@@ -196,3 +197,4 @@ later(function()
     })
     vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 end)
+

@@ -15,3 +15,9 @@ require("mappings")
 require("autocmds")
 require("plugin/mini")
 require("plugin/plugins")
+
+-- Load personal snippets
+local snippets = vim.fn.expand('~/opus/.snippets/index.lua')
+if vim.fn.filereadable(snippets) == 1 then
+  dofile(snippets)
+end
