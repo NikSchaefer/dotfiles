@@ -1,9 +1,4 @@
 [[plugin.deps]]
-use = "dedukun/relative-motions"
-rev = "a603d9e"
-hash = "e02a788e5b8ae0fb47fd0193dda589cc"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
 rev = "d1c8baa"
 hash = "8a7c58225816a163a6e8730c0adafbc8"

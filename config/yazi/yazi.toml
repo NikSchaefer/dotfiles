@@ -1,18 +1,62 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
 [mgr]
-show_hidden = false
-show_preview = false
-linemode = "none"
-sort_dir_first = true
 ratio = [0, 4, 0]
 
 [opener]
-pdf = [{ run = 'tdf "$@" -m 1 -f true', block = true, for = "unix" }]
-open = [{ run = 'open "$@"', block = false, for = "unix" }]
-edit = [{ run = 'nvim "$@"', block = true, for = "unix" }]
+edit = [{ run = "nvim %s", desc = "Edit", for = "unix", block = true }]
+pdf = [{ run = 'tdf "$@" -m 1 -f true', desc = "PDF", for = "unix", block = true }]
+play = [{ run = "open %s", desc = "Play", for = "macos" }]
+open = [{ run = "open %s", desc = "Open", for = "macos" }]
+reveal = [{ run = "open -R %s1", desc = "Reveal", for = "macos" }]
+extract = [{ run = "ya pub extract --list %s", desc = "Extract here" }]
 
 [open]
 rules = [
-  { name = "*.pdf", use = "pdf" },
-  { name = "*.{jpg,jpeg,png,gif,bmp,webp,tiff,svg,mp4,avi,mov,mkv,webm,flv,wmv,m4v}", use = "open" },
-  { name = "*", use = "edit" },
+  # Text
+  { mime = "text/*", use = [
+    "edit",
+    "reveal",
+  ] },
+  # PDF
+  { mime = "application/pdf", use = [
+    "pdf",
+    "open",
+    "reveal",
+  ] },
+  # Image
+  { mime = "image/*", use = [
+    "open",
+    "reveal",
+  ] },
+  # Media
+  { mime = "{audio,video}/*", use = [
+    "play",
+    "reveal",
+  ] },
+  # Archive
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [
+    "extract",
+    "reveal",
+  ] },
+  # JSON
+  { mime = "application/{json,ndjson}", use = [
+    "edit",
+    "reveal",
+  ] },
+  { mime = "*/javascript", use = [
+    "edit",
+    "reveal",
+  ] },
+  # Empty file
+  { mime = "inode/empty", use = [
+    "edit",
+    "reveal",
+  ] },
+  # Fallback
+  { url = "*", use = [
+    "open",
+    "reveal",
+  ] },
 ]
+

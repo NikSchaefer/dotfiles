@@ -20,6 +20,9 @@ plug "romkatv/powerlevel10k"
 plug "hlissner/zsh-autopair"
 plug "aloxaf/fzf-tab"
 
+# Brew tab completions
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+
 autoload -U compinit; compinit
 
 alias v="nvim"
@@ -69,3 +72,4 @@ function f() {
 
 # bun completions
 [ -s "/Users/nikschaefer/.bun/_bun" ] && source "/Users/nikschaefer/.bun/_bun"
+
