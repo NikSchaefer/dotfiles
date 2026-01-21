@@ -12,6 +12,15 @@ if [ -n "$1" ]; then
 else
     timestamp=$(date +"%Y-%m-%d")
     filename="${timestamp}.png"
+    
+    # Handle conflicts by adding a counter if file exists
+    if [ -f "$filename" ]; then
+        counter=1
+        while [ -f "${timestamp}-${counter}.png" ]; do
+            counter=$((counter + 1))
+        done
+        filename="${timestamp}-${counter}.png"
+    fi
 fi
 
 # Use AppleScript to check clipboard and save image

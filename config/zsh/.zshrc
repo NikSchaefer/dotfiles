@@ -70,6 +70,3 @@ function f() {
 # Powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# bun completions
-[ -s "/Users/nikschaefer/.bun/_bun" ] && source "/Users/nikschaefer/.bun/_bun"
-

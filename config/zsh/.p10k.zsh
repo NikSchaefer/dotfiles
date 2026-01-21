@@ -4,22 +4,6 @@
 # instant_prompt=verbose.
 # Type `p10k configure` to generate another config.
 #
-# Config file for Powerlevel10k with the style of Pure (https://github.com/sindresorhus/pure).
-#
-# Differences from Pure:
-#
-#   - Git:
-#     - `@c4d3ec2c` instead of something like `v1.4.0~11` when in detached HEAD state.
-#     - No automatic `git fetch` (the same as in Pure with `PURE_GIT_PULL=0`).
-#
-# Apart from the differences listed above, the replication of Pure prompt is exact. This includes
-# even the questionable parts. For example, just like in Pure, there is no indication of Git status
-# being stale; prompt symbol is the same in command, visual and overwrite vi modes; when prompt
-# doesn't fit on one line, it wraps around with no attempt to shorten it.
-#
-# If you like the general style of Pure but not particularly attached to all its quirks, type
-# `p10k configure` and pick "Lean" style. This will give you slick minimalist prompt while taking
-# advantage of Powerlevel10k features that aren't present in Pure.
 
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'

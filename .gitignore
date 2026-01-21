@@ -1,5 +1,5 @@
 # Mac-OS specific
-.DS_Store
+*.DS_Store
 
 # Neovim
 *.spl
