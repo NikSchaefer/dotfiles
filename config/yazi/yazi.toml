@@ -5,9 +5,7 @@ ratio = [0, 4, 0]
 
 [opener]
 edit = [{ run = "nvim %s", desc = "Edit", for = "unix", block = true }]
-pdf = [
-  { run = 'tdf "$@" -m 1 -f true', desc = "PDF", for = "unix", block = true },
-]
+pdf = [{ run = 'tdf "$@" -m 1 -f true', desc = "PDF", for = "unix", block = true }]
 play = [{ run = "open %s", desc = "Play", for = "macos" }]
 open = [{ run = "open %s", desc = "Open", for = "macos" }]
 reveal = [{ run = "open -R %s1", desc = "Reveal", for = "macos" }]
@@ -61,3 +59,4 @@ rules = [
     "reveal",
   ] },
 ]
+

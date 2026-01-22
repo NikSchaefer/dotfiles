@@ -1,0 +1,10 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "d1c8baa"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:no-status"
+rev = "d1c8baa"
+hash = "3e023d31f29201efdac2a6ae35fedb78"
+
