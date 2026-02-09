@@ -26,8 +26,6 @@ fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 autoload -U compinit; compinit
 
 alias v="nvim"
-alias cat="bat"
-alias ls="eza --icons"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # fzf - general file finder from anywhere
