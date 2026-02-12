@@ -38,7 +38,7 @@ fuzzy-find() {
             local dir=$(dirname "$selected")
             case "${selected:l}" in
                 *.pdf)
-                    BUFFER="cd $(printf %q "$dir"); tdf $(printf %q "$selected") -m 1 -f true"
+                    BUFFER="cd $(printf %q "$dir"); tdf $(printf %q "$selected") -m 1 -f"
                     ;;
                 *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff|*.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v)
                     BUFFER="cd $(printf %q "$dir"); open $(printf %q "$selected")"
