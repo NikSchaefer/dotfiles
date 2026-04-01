@@ -1,21 +1,25 @@
 vim.opt.spell = true
 vim.opt.wrap = true
 
+local MiniPairs = require("mini.pairs")
+
+MiniPairs.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })
+
 vim.keymap.set("n", "<leader>tw", function()
-	local filename = vim.fn.expand("%")
-	if vim.fn.fnamemodify(filename, ":e") == "typ" then
-		typst_job_id = vim.fn.jobstart({ "typst", "watch", filename }, {
-			on_exit = function(job_id, exit_code)
-				if exit_code == 0 then
-					print("Typst watch stopped")
-				else
-					print("Typst watch failed with code: " .. exit_code)
-				end
-				typst_job_id = nil
-			end,
-		})
-		vim.notify("Started typst watch for " .. filename, vim.log.levels.INFO)
-	else
-		print("Not a Typst file")
-	end
+    local filename = vim.fn.expand("%")
+    if vim.fn.fnamemodify(filename, ":e") == "typ" then
+        typst_job_id = vim.fn.jobstart({ "typst", "watch", filename }, {
+            on_exit = function(job_id, exit_code)
+                if exit_code == 0 then
+                    print("Typst watch stopped")
+                else
+                    print("Typst watch failed with code: " .. exit_code)
+                end
+                typst_job_id = nil
+            end,
+        })
+        vim.notify("Started typst watch for " .. filename, vim.log.levels.INFO)
+    else
+        print("Not a Typst file")
+    end
 end, { desc = "Start typst watch for current file" })
