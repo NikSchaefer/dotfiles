@@ -1,4 +1,4 @@
-# Powerlevel 10k instant prompt
+# p10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -6,9 +6,9 @@ fi
 # Paths
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.bun/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/dotfiles/bin:$PATH"
 
 # Zap

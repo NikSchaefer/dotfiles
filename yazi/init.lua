@@ -1,5 +1,4 @@
 -- Remove status line
-
 local old_layout = Tab.layout
 Status.redraw = function() return {} end
 Tab.layout = function(self, ...)
