@@ -17,7 +17,7 @@ require("plugin/mini")
 require("plugin/plugins")
 
 -- Load personal snippets
-local snippets = vim.fn.expand('~/axioms/.snippets/index.lua')
+local snippets = vim.fn.expand('~/integral/.snippets/index.lua')
 if vim.fn.filereadable(snippets) == 1 then
   dofile(snippets)
 end
