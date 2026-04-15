@@ -106,6 +106,18 @@ later(function()
         },
         automatic_installation = true,
     })
+
+    -- Prefer bun to node for language servers
+    vim.lsp.config("ts_ls", {
+        cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" }
+    })
+    vim.lsp.config("tailwindcss", {
+        cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" }
+    })
+    vim.lsp.config("emmet_ls", {
+        cmd = { "bun", "run", "--bun", "emmet-ls", "--stdio" }
+    })
+
     -- Ensure installed formatters
     add("WhoIsSethDaniel/mason-tool-installer.nvim")
     require("mason-tool-installer").setup({
