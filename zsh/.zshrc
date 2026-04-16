@@ -30,7 +30,7 @@ alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # fzf - general file finder from anywhere
 fuzzy-find() {
-    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications | fzf)
+    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --exclude go | fzf)
     if [ -n "$selected" ]; then
         if [ -d "$selected" ]; then
             BUFFER="cd $(printf %q "$selected")"
