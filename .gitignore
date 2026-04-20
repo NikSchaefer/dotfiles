@@ -9,4 +9,5 @@
 **/spell/*.add
 **/spell/*.add.spl
 spell/
+startuptime.log
 
