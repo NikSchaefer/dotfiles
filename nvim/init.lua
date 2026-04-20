@@ -10,14 +10,10 @@ end
 
 -- Set up 'mini.deps' immediately to have its `now()` and `later()` helpers
 require("mini.deps").setup()
-require("options")
-require("mappings")
-require("autocmds")
-require("plugin/mini")
-require("plugin/plugins")
 
 -- Load personal snippets
 local snippets = vim.fn.expand('~/integral/.snippets/index.lua')
 if vim.fn.filereadable(snippets) == 1 then
   dofile(snippets)
 end
+

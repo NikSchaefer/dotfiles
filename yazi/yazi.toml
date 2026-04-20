@@ -1,7 +1,7 @@
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
 [mgr]
-ratio = [0, 4, 0]
+# ratio = [0, 4, 0]
 
 [opener]
 edit = [{ run = "nvim %s", desc = "Edit", for = "unix", block = true }]
@@ -59,4 +59,3 @@ rules = [
     "reveal",
   ] },
 ]
-

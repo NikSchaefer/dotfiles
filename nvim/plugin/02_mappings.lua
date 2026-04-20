@@ -23,5 +23,5 @@ vim.keymap.set("n", "<leader>l", "<C-w>l", { desc = "Move to right window" })
 -- Navigate buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer", silent = true })
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
-vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer" })
-vim.keymap.set("n", "<leader>bp", ":bufdo bd except #<CR>", { desc = "Close all other buffers" })
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer", silent = true })
+vim.keymap.set("n", "<leader>bp", ":%bd|e#|bd#<CR>", { desc = "Close all other buffers", silent = true })
