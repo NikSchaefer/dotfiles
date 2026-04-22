@@ -61,6 +61,7 @@ end)
 
 later(function()
 	local ai = require("mini.ai") -- Add more text objects
+	local gen_ai_spec = require("mini.extra").gen_ai_spec
 	require("mini.ai").setup({
 		custom_textobjects = {
 			o = ai.gen_spec.treesitter({ -- code block
@@ -76,7 +77,11 @@ later(function()
 				{ "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
 				"^().*()$",
 			},
+			B = gen_ai_spec.buffer(),
+			D = gen_ai_spec.diagnostic(),
+			I = gen_ai_spec.indent(),
+			L = gen_ai_spec.line(),
+			N = gen_ai_spec.number(),
 		},
 	})
 end)
-

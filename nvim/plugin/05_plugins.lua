@@ -37,22 +37,6 @@ now(function()
 		highlight = { enable = true },
 		indent = { enable = true },
 	})
-
-	add({
-		source = "nvim-treesitter/nvim-treesitter-textobjects",
-		checkout = "main",
-	})
-
-	-- Prefer bun
-	vim.lsp.config("ts_ls", {
-		cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" },
-	})
-	vim.lsp.config("tailwindcss", {
-		cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" },
-	})
-	vim.lsp.config("emmet_ls", {
-		cmd = { "bun", "run", "--bun", "emmet-ls", "--stdio" },
-	})
 end)
 
 now(function()
@@ -63,11 +47,39 @@ now(function()
 		rename = { enabled = true },
 		picker = { enabled = true },
 		terminal = { enabled = true },
+		explorer = { enabled = true },
 		zen = {
 			enabled = true,
 			win = { width = 90 },
 		},
-		explorer = { enabled = true },
+		dashboard = {
+			enabled = true,
+			sections = {
+				{
+					align = "center",
+					text = {
+						{ "e ", hl = "Keyword" },
+						{ "^ ", hl = "Operator" },
+						{ "(", hl = "Comment" },
+						{ "i ", hl = "Function" },
+						{ "* ", hl = "Operator" },
+						{ "π", hl = "Constant" },
+						{ ") ", hl = "Comment" },
+						{ "+ ", hl = "Operator" },
+						{ "1 ", hl = "Number" },
+						{ "= ", hl = "Operator" },
+						{ "0", hl = "Number" },
+						-- { "G ", hl = "Function" },
+						-- { "↔ ", hl = "Operator" },
+						-- { "¬", hl = "ErrorMsg" },
+						-- { "Prov", hl = "Keyword" },
+						-- { "(", hl = "Comment" },
+						-- { "⌜G⌝", hl = "String" },
+						-- { ")", hl = "Comment" },
+					},
+				},
+			},
+		},
 	})
 end)
 
@@ -85,8 +97,24 @@ end)
 
 -- LSP, Completion, Formatting
 later(function()
+	-- Add treesitter extended objects
+	add({
+		source = "nvim-treesitter/nvim-treesitter-textobjects",
+		checkout = "main",
+	})
 	-- Mute LSP progress notifications
 	vim.lsp.handlers["$/progress"] = function() end
+
+	-- Prefer bun
+	vim.lsp.config("ts_ls", {
+		cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" },
+	})
+	vim.lsp.config("tailwindcss", {
+		cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" },
+	})
+	vim.lsp.config("emmet_ls", {
+		cmd = { "bun", "run", "--bun", "emmet-ls", "--stdio" },
+	})
 
 	-- LSP configs
 	add("neovim/nvim-lspconfig")
@@ -147,7 +175,7 @@ later(function()
 			typst = { "typstyle" },
 			toml = { "taplo" },
 			python = { "ruff" },
-			["_"] = { "prettier" },
+			["_"] = { "prettierd" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave
@@ -179,4 +207,6 @@ later(function()
 	require("which-key").setup({})
 	add("folke/flash.nvim")
 	require("flash").setup({})
+	add("folke/trouble.nvim")
+	require("trouble").setup({})
 end)

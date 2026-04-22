@@ -53,6 +53,11 @@ map("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen Mode
 
 -- LSP
 map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+map("n", "<leader>lx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+map("n", "<leader>lX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+map("n", "<leader>ls", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+map("n", "<leader>lr", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references / ... (Trouble)" })
+map("n", "<leader>lq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 -- map("n", "gd", function() require("snacks").picker.lsp_definitions() end, { desc = "Goto Definition" })
 -- map("n", "gr", function() require("snacks").picker.lsp_references() end, { desc = "References" })
 -- map("n", "gy", function() require("snacks").picker.lsp_type_definitions() end, { desc = "Goto Type Definition" })
