@@ -57,7 +57,18 @@ end)
 
 now(function()
 	add("folke/snacks.nvim")
-	require("snacks").setup({})
+	require("snacks").setup({
+		indent = { enabled = true },
+		lazygit = { enabled = true },
+		rename = { enabled = true },
+		picker = { enabled = true },
+		terminal = { enabled = true },
+		zen = {
+			enabled = true,
+			win = { width = 90 },
+		},
+		explorer = { enabled = true },
+	})
 end)
 
 -- Auto pairs for HTML/JSX tags
@@ -143,7 +154,7 @@ later(function()
 			if vim.g.is_autosave then
 				return false
 			end
-			return { lsp_fallback = true }
+			return { lsp_fallback = false }
 		end,
 	})
 end)
@@ -154,55 +165,18 @@ later(function()
 	vim.diagnostic.config({ virtual_text = false })
 end)
 
--- Harpoon
+-- Arrow
 later(function()
-	add({ source = "ThePrimeagen/harpoon", checkout = "harpoon2", depends = { "nvim-lua/plenary.nvim" } })
-	local harpoon = require("harpoon")
-
-	harpoon:setup()
-
-	-- Add to list
-	vim.keymap.set("n", "<leader>a", function()
-		harpoon:list():add()
-	end)
-	-- See menu
-	vim.keymap.set("n", "<leader>0", function()
-		harpoon.ui:toggle_quick_menu(harpoon:list())
-	end)
-	-- Tabs 1-4
-	vim.keymap.set("n", "<leader>1", function()
-		harpoon:list():select(1)
-	end)
-	vim.keymap.set("n", "<leader>2", function()
-		harpoon:list():select(2)
-	end)
-	vim.keymap.set("n", "<leader>3", function()
-		harpoon:list():select(3)
-	end)
-	vim.keymap.set("n", "<leader>4", function()
-		harpoon:list():select(4)
-	end)
-
-	-- Toggle previous & next buffers stored within Harpoon list
-	vim.keymap.set("n", "<leader>.", function()
-		harpoon:list():prev()
-	end)
-	vim.keymap.set("n", "<leader>,", function()
-		harpoon:list():next()
-	end)
+	add("otavioschwanck/arrow.nvim")
+	require("arrow").setup({
+		leader_key = ";",
+		buffer_leader_key = "m",
+	})
 end)
 
 later(function()
-	add("folke/zen-mode.nvim")
-	require("zen-mode").setup({
-		window = { width = 85 },
-	})
-	vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
-
 	add("folke/which-key.nvim")
 	require("which-key").setup({})
-
-	add("https://codeberg.org/andyg/leap.nvim")
-	require("leap").setup({})
-	vim.keymap.set({ "n", "x", "o" }, "<CR>", "<Plug>(leap)")
+	add("folke/flash.nvim")
+	require("flash").setup({})
 end)

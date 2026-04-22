@@ -1,27 +1,59 @@
-vim.g.mapleader = " "
+local map = vim.keymap.set
 
--- Map Ctrl-j to escape in insert mode
-vim.keymap.set("i", "<C-j>", "<Esc>", { desc = "Exit insert mode" })
+-- Delete without copying to clipboard
+map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })
 
--- Deletes without copying to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })
+-- Window navigation
+map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window" })
 
--- Split windows (vim-style directions)
-vim.keymap.set("n", "<leader>sh", "<C-w>v", { desc = "Split window left (vertical)" })
-vim.keymap.set("n", "<leader>sl", "<C-w>v", { desc = "Split window right (vertical)" })
-vim.keymap.set("n", "<leader>sk", "<C-w>s", { desc = "Split window up (horizontal)" })
-vim.keymap.set("n", "<leader>sj", "<C-w>s", { desc = "Split window down (horizontal)" })
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
-vim.keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current split" })
-
--- Navigate between windows (vim-style hjkl)
-vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<leader>j", "<C-w>j", { desc = "Move to bottom window" })
-vim.keymap.set("n", "<leader>k", "<C-w>k", { desc = "Move to top window" })
-vim.keymap.set("n", "<leader>l", "<C-w>l", { desc = "Move to right window" })
+-- Window management
+map("n", "<leader>wh", "<C-w>v<C-w>h", { desc = "Split Left" })
+map("n", "<leader>wj", "<C-w>s", { desc = "Split Below" })
+map("n", "<leader>wk", "<C-w>s<C-w>k", { desc = "Split Above" })
+map("n", "<leader>wl", "<C-w>v", { desc = "Split Right" })
+map("n", "<leader>wd", "<C-w>c", { desc = "Delete Window" })
+map("n", "<leader>we", "<C-w>=", { desc = "Equalize Windows" })
+map("n", "<leader>w+", "<cmd>resize +5<cr>", { desc = "Grow Height" })
+map("n", "<leader>w-", "<cmd>resize -5<cr>", { desc = "Shrink Height" })
+map("n", "<leader>w>", "<cmd>vertical resize +5<cr>", { desc = "Grow Width" })
+map("n", "<leader>w<", "<cmd>vertical resize -5<cr>", { desc = "Shrink Width" })
 
 -- Navigate buffers
-vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer", silent = true })
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
-vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer", silent = true })
-vim.keymap.set("n", "<leader>bp", ":%bd|e#|bd#<CR>", { desc = "Close all other buffers", silent = true })
+map("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer", silent = true })
+map("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
+map("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer", silent = true })
+map("n", "<leader>bo", ":%bd|e#|bd#<CR>", { desc = "Close all other buffers", silent = true })
+
+-- Explore
+map("n", "<leader>e", function() require("mini.files").open() end, { desc = "Mini Files" })
+map("n", "<leader>x", function() require("snacks").explorer() end, { desc = "Snacks Explorer" })
+
+-- Find
+map("n", "<leader><leader>", function() require("snacks").picker.smart() end, { desc = "Smart Picker" })
+map("n", "<leader>ff", function() require("snacks").picker.files() end, { desc = "Find Files" })
+map("n", "<leader>fp", function() require("snacks").picker.projects() end, { desc = "Projects" })
+map("n", "<leader>fc", function() require("snacks").picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config Files" })
+map("n", "<leader>fs", function() require("snacks").picker() end, { desc = "Pick Sources" })
+map("n", "<leader>fw", function() require("snacks").picker.grep_word() end, { desc = "Search Word" })
+map("n", "<leader>fg", function() require("snacks").picker.grep() end, { desc = "Grep (Root)" })
+map("n", "<leader>fk", function() require("snacks").picker.keymaps() end, { desc = "Keymaps" })
+map("n", "<leader>fq", function() require("snacks").picker.qflist() end, { desc = "Quickfix List" })
+map("n", "<leader>fu", function() require("snacks").picker.undo() end, { desc = "Undo History" })
+
+-- Git
+map("n", "<leader>gg", function() require("snacks").lazygit() end, { desc = "LazyGit" })
+map("n", "<leader>gl", function() require("snacks").picker.git_log() end, { desc = "Git Log" })
+map("n", "<leader>gd", function() require("snacks").picker.git_diff() end, { desc = "Git Diff" })
+
+-- Zen
+map("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen Mode" })
+
+-- LSP
+map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+-- map("n", "gd", function() require("snacks").picker.lsp_definitions() end, { desc = "Goto Definition" })
+-- map("n", "gr", function() require("snacks").picker.lsp_references() end, { desc = "References" })
+-- map("n", "gy", function() require("snacks").picker.lsp_type_definitions() end, { desc = "Goto Type Definition" })
+-- map("n", "<leader>ss", function() require("snacks").picker.lsp_symbols() end, { desc = "LSP Symbols" })

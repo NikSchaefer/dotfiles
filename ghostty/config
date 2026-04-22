@@ -24,6 +24,10 @@ keybind = super+j=goto_split:down
 keybind = super+k=goto_split:up
 keybind = super+l=goto_split:right
 
+# Scroll up and down
+keybind = super+u=scroll_page_up
+keybind = super+d=scroll_page_down
+
 keybind = super+;=clear_screen
 keybind = super+f=text:\x06
 

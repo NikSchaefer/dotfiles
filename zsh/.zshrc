@@ -23,6 +23,9 @@ plug "aloxaf/fzf-tab"
 # Brew tab completions
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
+# bun completions
+[ -s "/Users/nikschaefer/.bun/_bun" ] && source "/Users/nikschaefer/.bun/_bun"
+
 autoload -U compinit; compinit
 
 alias v="nvim"

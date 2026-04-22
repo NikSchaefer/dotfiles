@@ -1,3 +1,6 @@
+-- Initialize leader key
+vim.g.mapleader = " "
+
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath("data") .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
@@ -15,7 +18,6 @@ if not vim.loop.fs_stat(mini_path) then
 	vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
--- Set up 'mini.deps'
 require("mini.deps").setup({ path = { package = path_package } })
 
 -- Load personal snippets
