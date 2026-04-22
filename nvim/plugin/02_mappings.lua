@@ -3,6 +3,9 @@ local map = vim.keymap.set
 -- Delete without copying to clipboard
 map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without copying" })
 
+-- Copy to system keyboard
+map({'n', 'x'}, 'gy', '"+y', { desc = "Copy to system clipboard" })
+
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
