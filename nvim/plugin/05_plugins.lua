@@ -15,7 +15,7 @@ end)
 
 -- Treesitter
 now(function()
-	add({ source = "nvim-treesitter/nvim-treesitter", checkout = "master" })
+	add({ source = "nvim-treesitter/nvim-treesitter" })
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = {
 			"rust",
@@ -158,7 +158,7 @@ later(function()
 	-- Completion
 	add({
 		source = "saghen/blink.cmp",
-		depends = { "rafamadriz/friendly-snippets" },
+		depends = { "rafamadriz/friendly-snippets", "saghen/blink.lib" },
 	})
 	require("blink.cmp").setup({
 		fuzzy = { implementation = "lua" },
