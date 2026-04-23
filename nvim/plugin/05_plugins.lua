@@ -15,8 +15,9 @@ end)
 
 -- Treesitter
 now(function()
-	add({ source = "nvim-treesitter/nvim-treesitter" })
-	require("nvim-treesitter.configs").setup({
+	add("romus204/tree-sitter-manager.nvim")
+	require("tree-sitter-manager").setup({
+		auto_install = true,
 		ensure_installed = {
 			"rust",
 			"go",
@@ -27,15 +28,11 @@ now(function()
 			"json",
 			"html",
 			"css",
-			"markdown",
 			"typst",
 			"toml",
 			"python",
 			"make",
 		},
-		auto_install = true,
-		highlight = { enable = true },
-		indent = { enable = true },
 	})
 end)
 
@@ -98,10 +95,8 @@ end)
 -- LSP, Completion, Formatting
 later(function()
 	-- Add treesitter extended objects
-	add({
-		source = "nvim-treesitter/nvim-treesitter-textobjects",
-		checkout = "main",
-	})
+	add("nvim-treesitter/nvim-treesitter-textobjects")
+
 	-- Mute LSP progress notifications
 	vim.lsp.handlers["$/progress"] = function() end
 

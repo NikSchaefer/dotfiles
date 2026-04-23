@@ -54,6 +54,9 @@ map("n", "<leader>gd", function() require("snacks").picker.git_diff() end, { des
 -- Zen
 map("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen Mode" })
 
+-- Flash
+map({"n", "x", "o"}, "<CR>", function () require("flash").jump() end, { desc = "Flash" })
+
 -- Diagnostics
 map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "<leader>lx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })

@@ -25,3 +25,4 @@ local snippets = vim.fn.expand("~/integral/.snippets/index.lua")
 if vim.fn.filereadable(snippets) == 1 then
 	dofile(snippets)
 end
+
