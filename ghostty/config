@@ -3,8 +3,6 @@ background-opacity = 0.85
 background-blur-radius = 40
 font-size = 18
 
-title = ~
-
 window-padding-x = 10
 window-padding-y = 6
 
