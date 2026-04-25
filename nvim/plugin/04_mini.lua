@@ -37,15 +37,6 @@ later(function()
 end)
 
 later(function()
-	require("mini.keymap").setup() -- custom keymap helpers
-	local map_multistep = require("mini.keymap").map_multistep
-	map_multistep("i", "<Tab>", { "pmenu_next" })
-	map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-	map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
-	map_multistep("i", "<BS>", { "minipairs_bs" })
-end)
-
-later(function()
 	local hipatterns = require("mini.hipatterns") -- Highlight patterns
 	local hi_words = MiniExtra.gen_highlighter.words
 	hipatterns.setup({
