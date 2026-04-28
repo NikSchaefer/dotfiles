@@ -100,16 +100,22 @@ later(function()
 	-- Mute LSP progress notifications
 	vim.lsp.handlers["$/progress"] = function() end
 
+	local has_node = vim.fn.executable("node") == 1
+	local has_bun = vim.fn.executable("bun") == 1
+	local has_node_runtime = has_node or has_bun
+
 	-- Prefer bun
-	vim.lsp.config("ts_ls", {
-		cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" },
-	})
-	vim.lsp.config("tailwindcss", {
-		cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" },
-	})
-	vim.lsp.config("emmet_ls", {
-		cmd = { "bun", "run", "--bun", "emmet-ls", "--stdio" },
-	})
+	if has_bun then
+		vim.lsp.config("ts_ls", {
+			cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" },
+		})
+		vim.lsp.config("tailwindcss", {
+			cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" },
+		})
+		vim.lsp.config("emmet_ls", {
+			cmd = { "bun", "run", "--bun", "emmet-ls", "--stdio" },
+		})
+	end
 
 	-- LSP configs
 	add("neovim/nvim-lspconfig")
@@ -118,36 +124,44 @@ later(function()
 	add("williamboman/mason.nvim")
 	require("mason").setup({})
 
+	local lsp_ensure_installed = {
+		"rust_analyzer",
+		"gopls",
+		"lua_ls",
+		"html",
+		"cssls",
+		"tinymist",
+		"taplo",
+		"ty",
+	}
+	if has_node_runtime then
+		table.insert(lsp_ensure_installed, "ts_ls")
+		table.insert(lsp_ensure_installed, "emmet_ls")
+		table.insert(lsp_ensure_installed, "tailwindcss")
+	end
+
 	-- Setup LSPs
 	add("williamboman/mason-lspconfig.nvim")
 	require("mason-lspconfig").setup({
-		ensure_installed = {
-			"rust_analyzer",
-			"gopls",
-			"ts_ls",
-			"lua_ls",
-			"html",
-			"cssls",
-			"emmet_ls",
-			"tailwindcss",
-			"tinymist",
-			"taplo",
-			"ty",
-		},
+		ensure_installed = lsp_ensure_installed,
 		automatic_installation = true,
 	})
+
+	local tool_ensure_installed = {
+		"rustfmt",
+		"stylua",
+		"goimports",
+		"typstyle",
+		"ruff",
+	}
+	if has_node_runtime then
+		table.insert(tool_ensure_installed, "prettierd")
+	end
 
 	-- Setup formatters
 	add("WhoIsSethDaniel/mason-tool-installer.nvim")
 	require("mason-tool-installer").setup({
-		ensure_installed = {
-			"rustfmt",
-			"prettierd",
-			"stylua",
-			"goimports",
-			"typstyle",
-			"ruff",
-		},
+		ensure_installed = tool_ensure_installed,
 	})
 
 	-- Completion
