@@ -31,7 +31,20 @@ map("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer", silent = true
 map("n", "<leader>bo", ":%bd|e#|bd#<CR>", { desc = "Close all other buffers", silent = true })
 
 -- Explore
-map("n", "<leader>e", function() require("mini.files").open() end, { desc = "Mini Files" })
+-- map("n", "<leader>e", function() require("mini.files").open() end, { desc = "Mini Files" })
+map("n", "<leader>e", function()
+		local MiniFiles = require("mini.files")
+		if MiniFiles.get_explorer_state() then
+			MiniFiles.close()
+		else
+			local buf_name = vim.api.nvim_buf_get_name(0)
+			local path = (buf_name ~= "" and not buf_name:match("^%w+://")) and buf_name or nil
+			MiniFiles.open(path, false)
+			vim.defer_fn(function()
+				MiniFiles.reveal_cwd()
+			end, 30)
+		end
+	end, { desc = "Open mini.files at current file" })
 map("n", "<leader>x", function() require("snacks").explorer() end, { desc = "Snacks Explorer" })
 
 -- Find
