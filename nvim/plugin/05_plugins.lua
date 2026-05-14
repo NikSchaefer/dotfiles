@@ -154,10 +154,18 @@ later(function()
 	add({
 		source = "saghen/blink.cmp",
 		depends = { "rafamadriz/friendly-snippets", "saghen/blink.lib" },
+		hooks = {
+			post_install = function()
+				require("blink.cmp").build():wait(60000)
+			end,
+			post_checkout = function()
+				require("blink.cmp").build():wait(60000)
+			end,
+		},
 	})
 	require("blink.cmp").setup({
-		fuzzy = { implementation = "lua" },
 		keymap = { preset = "super-tab" },
+		fuzzy = { implementation = "prefer_rust" },
 	})
 
 	-- Formatting

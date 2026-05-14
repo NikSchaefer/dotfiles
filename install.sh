@@ -5,7 +5,6 @@ mkdir -p ~/.config
 ln -snfv ~/dotfiles/nvim ~/.config/nvim
 ln -snfv ~/dotfiles/ghostty ~/.config/ghostty
 ln -snfv ~/dotfiles/yazi ~/.config/yazi
-ln -snfv ~/dotfiles/btop ~/.config/btop
 
 ln -snfv ~/dotfiles/zsh/.zshrc ~/.zshrc
 ln -snfv ~/dotfiles/zsh/.p10k.zsh ~/.p10k.zsh
