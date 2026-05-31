@@ -63,6 +63,7 @@ map("n", "<leader>fu", function() require("snacks").picker.undo() end, { desc = 
 map("n", "<leader>gg", function() require("snacks").lazygit() end, { desc = "LazyGit" })
 map("n", "<leader>gl", function() require("snacks").picker.git_log() end, { desc = "Git Log" })
 map("n", "<leader>gd", function() require("snacks").picker.git_diff() end, { desc = "Git Diff" })
+map("n", "<leader>gb", "<cmd>GitBlameToggle<cr>", { desc = "Toggle Git Blame" })
 
 -- Zen
 map("n", "<leader>z", function() require("snacks").zen() end, { desc = "Zen Mode" })

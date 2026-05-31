@@ -209,8 +209,8 @@ end)
 later(function()
 	add("f-person/git-blame.nvim")
 	require("gitblame").setup({
-        enabled = true,
-    })
+		enabled = false,
+	})
 end)
 
 later(function()
