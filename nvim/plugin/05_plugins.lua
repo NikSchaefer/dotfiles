@@ -205,6 +205,14 @@ later(function()
 	})
 end)
 
+-- Git Blame
+later(function()
+	add("f-person/git-blame.nvim")
+	require("gitblame").setup({
+        enabled = true,
+    })
+end)
+
 later(function()
 	add("folke/which-key.nvim")
 	require("which-key").setup({})
