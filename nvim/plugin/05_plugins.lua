@@ -177,7 +177,7 @@ later(function()
 			lua = { "stylua" },
 			typst = { "typstyle" },
 			toml = { "taplo" },
-			python = { "ruff" },
+			python = { "ruff_format" },
 			["_"] = { "prettierd" },
 		},
 		format_on_save = function()
