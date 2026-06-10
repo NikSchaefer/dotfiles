@@ -49,34 +49,6 @@ now(function()
 			enabled = true,
 			win = { width = 90 },
 		},
-		dashboard = {
-			enabled = true,
-			sections = {
-				{
-					align = "center",
-					text = {
-						{ "e ", hl = "Keyword" },
-						{ "^ ", hl = "Operator" },
-						{ "(", hl = "Comment" },
-						{ "i ", hl = "Function" },
-						{ "* ", hl = "Operator" },
-						{ "π", hl = "Constant" },
-						{ ") ", hl = "Comment" },
-						{ "+ ", hl = "Operator" },
-						{ "1 ", hl = "Number" },
-						{ "= ", hl = "Operator" },
-						{ "0", hl = "Number" },
-						-- { "G ", hl = "Function" },
-						-- { "↔ ", hl = "Operator" },
-						-- { "¬", hl = "ErrorMsg" },
-						-- { "Prov", hl = "Keyword" },
-						-- { "(", hl = "Comment" },
-						-- { "⌜G⌝", hl = "String" },
-						-- { ")", hl = "Comment" },
-					},
-				},
-			},
-		},
 	})
 end)
 
