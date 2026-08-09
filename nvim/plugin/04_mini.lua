@@ -13,13 +13,10 @@ end)
 later(function()
 	require("mini.align").setup() -- align text interactively
 	require("mini.bracketed").setup() -- bracket navigation
-	require("mini.comment").setup() -- toggle comments
 	require("mini.diff").setup() -- inline git diffs
 	require("mini.cmdline").setup() -- cmd completion
 	require("mini.git").setup() -- git integration
-	-- require("mini.indentscope").setup() -- animated indent
 	require("mini.jump").setup() -- extend f/t jumps
-	-- require("mini.jump2d").setup() -- 2d jump labels
 	require("mini.move").setup() -- move lines/selections
 	require("mini.pairs").setup() -- auto pairs
 	require("mini.icons").setup() -- file/ui icons

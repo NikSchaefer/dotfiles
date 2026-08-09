@@ -4,12 +4,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Paths
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="$HOME/dotfiles/bin:$PATH"
 
 # Zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
@@ -24,9 +24,7 @@ plug "aloxaf/fzf-tab"
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
 # bun completions
-[ -s "/Users/nikschaefer/.bun/_bun" ] && source "/Users/nikschaefer/.bun/_bun"
-
-autoload -U compinit; compinit
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 alias v="nvim"
 alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'

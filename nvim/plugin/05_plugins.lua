@@ -87,11 +87,11 @@ later(function()
 	add("neovim/nvim-lspconfig")
 
 	-- LSP installer
-	add("williamboman/mason.nvim")
+	add("mason-org/mason.nvim")
 	require("mason").setup({})
 
 	-- Setup LSPs
-	add("williamboman/mason-lspconfig.nvim")
+	add("mason-org/mason-lspconfig.nvim")
 	require("mason-lspconfig").setup({
 		ensure_installed = {
 			"rust_analyzer",
@@ -106,7 +106,6 @@ later(function()
 			"taplo",
 			"ty",
 		},
-		automatic_installation = true,
 	})
 
 	-- Setup formatters
@@ -157,7 +156,7 @@ later(function()
 			if vim.g.is_autosave then
 				return false
 			end
-			return { lsp_fallback = false }
+			return { lsp_format = "never" }
 		end,
 	})
 end)

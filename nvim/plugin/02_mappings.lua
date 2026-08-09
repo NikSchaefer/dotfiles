@@ -31,7 +31,6 @@ map("n", "<leader>bd", ":bd<CR>", { desc = "Close current buffer", silent = true
 map("n", "<leader>bo", ":%bd|e#|bd#<CR>", { desc = "Close all other buffers", silent = true })
 
 -- Explore
--- map("n", "<leader>e", function() require("mini.files").open() end, { desc = "Mini Files" })
 map("n", "<leader>e", function()
 		local MiniFiles = require("mini.files")
 		if MiniFiles.get_explorer_state() then
