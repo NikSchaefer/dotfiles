@@ -81,5 +81,5 @@ map("n", "<leader>lq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List
 -- LSP
 map("n", "gd", function() require("snacks").picker.lsp_definitions() end, { desc = "Goto Definition" })
 map("n", "grr", function() require("snacks").picker.lsp_references() end, { desc = "References" })
-map("n", "gy", function() require("snacks").picker.lsp_type_definitions() end, { desc = "Goto Type Definition" })
+map("n", "gY", function() require("snacks").picker.lsp_type_definitions() end, { desc = "Goto Type Definition" })
 map("n", "<leader>ss", function() require("snacks").picker.lsp_symbols() end, { desc = "LSP Symbols" })

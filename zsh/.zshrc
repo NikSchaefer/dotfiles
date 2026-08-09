@@ -31,28 +31,31 @@ alias gorepo='open "$(git remote get-url origin | sed "s/\.git$//")"'
 
 # fzf - general file finder from anywhere
 fuzzy-find() {
-    local selected=$HOME/$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --exclude go | fzf)
-    if [ -n "$selected" ]; then
-        if [ -d "$selected" ]; then
-            BUFFER="cd $(printf %q "$selected")"
-        else
-            local dir=$(dirname "$selected")
-            case "${selected:l}" in
-                *.pdf)
-                    BUFFER="cd $(printf %q "$dir"); tdf $(printf %q "$selected") -m 1 -f"
-                    ;;
-                *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff|*.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v)
-                    BUFFER="cd $(printf %q "$dir"); open $(printf %q "$selected")"
-                    ;;
-                *)
-                    BUFFER="cd $(printf %q "$dir"); nvim $(printf %q "$selected")"
-                    ;;
-            esac
-        fi
-        zle accept-line
-    else
+    local rel
+    rel=$(cd ~ && fd . --follow --exclude .git --exclude Library --exclude Applications --exclude go | fzf)
+    if [[ -z "$rel" ]]; then
         zle reset-prompt
+        return
     fi
+
+    local selected="$HOME/$rel"
+    if [ -d "$selected" ]; then
+        BUFFER="cd $(printf %q "$selected")"
+    else
+        local dir=$(dirname "$selected")
+        case "${selected:l}" in
+            *.pdf)
+                BUFFER="cd $(printf %q "$dir"); tdf $(printf %q "$selected") -m 1 -f"
+                ;;
+            *.png|*.jpg|*.jpeg|*.gif|*.webp|*.svg|*.bmp|*.tiff|*.mp4|*.mov|*.avi|*.mkv|*.webm|*.m4v)
+                BUFFER="cd $(printf %q "$dir"); open $(printf %q "$selected")"
+                ;;
+            *)
+                BUFFER="cd $(printf %q "$dir"); nvim $(printf %q "$selected")"
+                ;;
+        esac
+    fi
+    zle accept-line
 }
 zle -N fuzzy-find
 bindkey '^F' fuzzy-find
