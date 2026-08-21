@@ -1,9 +1,9 @@
 [opener]
-edit = [{ run = 'nvim "$@"', desc = "Edit", for = "unix", block = true }]
-pdf = [{ run = 'tdf "$@" -m 1 -f', desc = "PDF", for = "unix", block = true }]
-open = [{ run = 'open "$@"', desc = "Open", for = "macos" }]
-reveal = [{ run = 'open -R "$@"', desc = "Reveal", for = "macos" }]
-extract = [{ run = 'ya pub extract --list "$@"', desc = "Extract here" }]
+edit = [{ run = 'nvim %s', desc = "Edit", for = "unix", block = true }]
+pdf = [{ run = 'tdf %s -m 1 -f', desc = "PDF", for = "unix", block = true }]
+open = [{ run = 'open %s', desc = "Open", for = "macos" }]
+reveal = [{ run = 'open -R %s', desc = "Reveal", for = "macos" }]
+extract = [{ run = 'ya pub extract --list %s', desc = "Extract here" }]
 
 [open]
 rules = [

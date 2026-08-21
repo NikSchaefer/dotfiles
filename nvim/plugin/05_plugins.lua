@@ -113,7 +113,7 @@ later(function()
 	require("mason-tool-installer").setup({
 		ensure_installed = {
 			"rustfmt",
-			"prettierd",
+			"oxfmt",
 			"stylua",
 			"goimports",
 			"typstyle",
@@ -149,7 +149,7 @@ later(function()
 			typst = { "typstyle" },
 			toml = { "taplo" },
 			python = { "ruff_format" },
-			["_"] = { "prettierd" },
+			["_"] = { "oxfmt" },
 		},
 		format_on_save = function()
 			-- Only format if it's NOT an autosave

@@ -10,6 +10,16 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+-- 2-space indent for filetypes that conventionally use it
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "typescript", "typescriptreact", "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.expandtab = true
+	end,
+})
+
 vim.opt.smartindent = true -- Auto indent
 vim.opt.wrap = false -- No wrap
 vim.o.ignorecase = true -- Insensitive search
