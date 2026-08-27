@@ -27,95 +27,85 @@ $env.config.history.max_size = 1_000_000
 #---------------------------------------------------colors
 # Tokyo Night
 const TN = {
-    blue: "122;162;247"       # #7aa2f7
-    magenta: "187;154;247"    # #bb9af7
-    orange: "255;158;100"     # #ff9e64
-    green: "158;206;106"      # #9ece6a
-    yellow: "224;175;104"     # #e0af68
-    red: "247;118;142"        # #f7768e
-    cyan: "137;221;255"       # #89ddff
-    teal: "115;218;202"       # #73daca
-    fg: "192;202;245"         # #c0caf5
-    bg_highlight: "41;46;66"  # #292e42
-    selection: "65;72;104"    # #414868
-    comment: "86;95;137"      # #565f89
-    bg_dark: "22;22;30"       # #16161e
-}
-
-def _hex [rgb: string] {
-    "#" + ($rgb | split row ";" | each {|c|
-        $c | into int | format number | get lowerhex | str replace "0x" ""
-           | fill --alignment r --character "0" --width 2
-    } | str join)
+    blue: "#7aa2f7"
+    magenta: "#bb9af7"
+    orange: "#ff9e64"
+    green: "#9ece6a"
+    yellow: "#e0af68"
+    red: "#f7768e"
+    cyan: "#89ddff"
+    teal: "#73daca"
+    fg: "#c0caf5"
+    bg_highlight: "#292e42"
+    selection: "#414868"
+    comment: "#565f89"
+    bg_dark: "#16161e"
 }
 
 #---------------------------------------------------colors: nushell itself
-# $TN as hex, which is the form `color_config` wants.
-let TNH = ($TN | items {|k, v| {$k: (_hex $v)} } | reduce --fold {} {|it, acc| $acc | merge $it })
-
 # Merged rather than replaced, so keys added upstream keep their defaults.
 $env.config.color_config = ($env.config.color_config | merge {
     # syntax highlighting, live as you type
-    shape_internalcall: $TNH.blue
-    shape_external: $TNH.blue
-    shape_external_resolved: $TNH.blue
-    shape_externalarg: $TNH.fg
-    shape_literal: $TNH.blue
-    shape_custom: $TNH.green
-    shape_match_pattern: $TNH.green
-    shape_string: $TNH.green
-    shape_raw_string: $TNH.green
-    shape_string_interpolation: $TNH.teal
-    shape_glob_interpolation: $TNH.teal
-    shape_int: $TNH.orange
-    shape_float: $TNH.orange
-    shape_binary: $TNH.orange
-    shape_range: $TNH.orange
-    shape_bool: $TNH.orange
-    shape_nothing: $TNH.orange
-    shape_datetime: $TNH.orange
-    shape_keyword: { fg: $TNH.magenta, attr: b }
-    shape_variable: $TNH.magenta
-    shape_vardecl: $TNH.magenta
-    shape_operator: $TNH.cyan
-    shape_pipe: $TNH.cyan
-    shape_redirection: $TNH.cyan
-    shape_flag: $TNH.yellow
-    shape_filepath: $TNH.teal
-    shape_directory: $TNH.teal
-    shape_globpattern: $TNH.teal
-    shape_signature: $TNH.teal
-    shape_block: $TNH.fg
-    shape_closure: $TNH.fg
-    shape_record: $TNH.fg
-    shape_list: $TNH.fg
-    shape_table: $TNH.fg
+    shape_internalcall: $TN.blue
+    shape_external: $TN.blue
+    shape_external_resolved: $TN.blue
+    shape_externalarg: $TN.fg
+    shape_literal: $TN.blue
+    shape_custom: $TN.green
+    shape_match_pattern: $TN.green
+    shape_string: $TN.green
+    shape_raw_string: $TN.green
+    shape_string_interpolation: $TN.teal
+    shape_glob_interpolation: $TN.teal
+    shape_int: $TN.orange
+    shape_float: $TN.orange
+    shape_binary: $TN.orange
+    shape_range: $TN.orange
+    shape_bool: $TN.orange
+    shape_nothing: $TN.orange
+    shape_datetime: $TN.orange
+    shape_keyword: { fg: $TN.magenta, attr: b }
+    shape_variable: $TN.magenta
+    shape_vardecl: $TN.magenta
+    shape_operator: $TN.cyan
+    shape_pipe: $TN.cyan
+    shape_redirection: $TN.cyan
+    shape_flag: $TN.yellow
+    shape_filepath: $TN.teal
+    shape_directory: $TN.teal
+    shape_globpattern: $TN.teal
+    shape_signature: $TN.teal
+    shape_block: $TN.fg
+    shape_closure: $TN.fg
+    shape_record: $TN.fg
+    shape_list: $TN.fg
+    shape_table: $TN.fg
     shape_matching_brackets: { attr: u }
-    shape_garbage: { fg: $TNH.red, attr: b }
+    shape_garbage: { fg: $TN.red, attr: b }
 
     # table output and values
-    header: { fg: $TNH.blue, attr: b }
-    separator: $TNH.comment
-    row_index: $TNH.comment
-    hints: $TNH.comment           # autosuggestion ghost text
-    empty: $TNH.blue
-    string: $TNH.fg
-    int: $TNH.orange
-    float: $TNH.orange
-    filesize: $TNH.orange
-    duration: $TNH.orange
-    range: $TNH.orange
-    bool: $TNH.orange
-    binary: $TNH.orange
-    datetime: $TNH.teal
-    cell-path: $TNH.teal
-    nothing: $TNH.comment
-    record: $TNH.fg
-    list: $TNH.fg
-    block: $TNH.fg
-    closure: $TNH.fg
-    selection: { fg: $TNH.fg, bg: $TNH.selection }
-    search_result: { fg: $TNH.bg_dark, bg: $TNH.yellow }
+    header: { fg: $TN.blue, attr: b }
+    separator: $TN.comment
+    row_index: $TN.comment
+    hints: $TN.comment           # autosuggestion ghost text
+    empty: $TN.blue
+    string: $TN.fg
+    int: $TN.orange
+    float: $TN.orange
+    filesize: $TN.orange
+    duration: $TN.orange
+    range: $TN.orange
+    bool: $TN.orange
+    binary: $TN.orange
+    datetime: $TN.teal
+    cell-path: $TN.teal
+    nothing: $TN.comment
+    record: $TN.fg
+    list: $TN.fg
+    block: $TN.fg
+    closure: $TN.fg
+    selection: { fg: $TN.fg, bg: $TN.selection }
+    search_result: { fg: $TN.bg_dark, bg: $TN.yellow }
 })
 
 # fzf
@@ -127,15 +117,15 @@ $env.FZF_DEFAULT_OPTS = ({
     pointer: $TN.orange, spinner: $TN.orange
     marker: $TN.blue
     border: $TN.comment
-} | transpose role rgb | each {|r| $"($r.role):(_hex $r.rgb)" } | str join "," | $"--color=($in)")
+} | items {|role, color| $"($role):($color)" } | str join "," | $"--color=($in)")
 
 #---------------------------------------------------prompt: pills
 const CAPS = { l: "", r: "" }
 
 # Text on a colored background, with matching caps on either side.
-def _pill [rgb: string, text: string] {
-    let c = (ansi --escape $"38;2;($rgb)m")
-    let b = (ansi --escape $"48;2;($rgb);38;2;($TN.bg_dark)m")
+def _pill [color: string, text: string] {
+    let c = (ansi {fg: $color})
+    let b = (ansi {fg: $TN.bg_dark, bg: $color})
     let r = (ansi reset)
     $"($c)($CAPS.l)($b) ($text) ($r)($c)($CAPS.r)($r)"
 }
@@ -207,7 +197,7 @@ def _git [] {
 #---------------------------------------------------prompt: assembly
 # Indicator glyph
 def _arrow [glyph: string] {
-    $" (ansi --escape $'1;38;2;($TN.green)m')($glyph)(ansi reset) "
+    $" (ansi {fg: $TN.green, attr: b})($glyph)(ansi reset) "
 }
 
 $env.config.render_right_prompt_on_last_line = true
@@ -218,7 +208,7 @@ $env.PROMPT_COMMAND_RIGHT = {||
 $env.PROMPT_INDICATOR = ""
 $env.PROMPT_INDICATOR_VI_INSERT = {|| _arrow "¬" }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| _arrow ":" }
-$env.PROMPT_MULTILINE_INDICATOR = $"(ansi --escape $'38;2;($TN.magenta)m')❯ (ansi reset)"
+$env.PROMPT_MULTILINE_INDICATOR = $"(ansi {fg: $TN.magenta})❯ (ansi reset)"
 $env.config.menus = ($env.config.menus | each {|m| $m | update marker $" ($m.marker | str trim) " })
 
 #---------------------------------------------------completions
