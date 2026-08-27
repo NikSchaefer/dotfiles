@@ -10,6 +10,9 @@ quit-after-last-window-closed = true
 confirm-close-surface = false
 mouse-hide-while-typing = true
 
+command = /opt/homebrew/bin/nu
+shell-integration = none
+
 # Split terminal
 keybind = super+shift+h=new_split:left
 keybind = super+shift+j=new_split:down

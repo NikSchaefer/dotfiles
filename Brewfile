@@ -1,9 +1,11 @@
 tap "oven-sh/bun", trusted: true
+brew "carapace"
 brew "fd"
 brew "fzf"
 brew "go"
 brew "lazygit"
 brew "neovim"
+brew "nushell"
 brew "podman"
 brew "ripgrep"
 brew "rustup"

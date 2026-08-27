@@ -1,28 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
-mkdir -p ~/.config
+cd "$(dirname "$0")"
 
-DOTFILES_DIR=~/dotfiles
+NU_DIR="$HOME/Library/Application Support/nushell"
+mkdir -p ~/.config "$NU_DIR"
 
-# Link dotfile configs
-ln -snfv $DOTFILES_DIR/nvim ~/.config/nvim
-ln -snfv $DOTFILES_DIR/ghostty ~/.config/ghostty
-ln -snfv $DOTFILES_DIR/yazi ~/.config/yazi
-
-ln -snfv $DOTFILES_DIR/zsh/.zshrc ~/.zshrc
-ln -snfv $DOTFILES_DIR/zsh/.p10k.zsh ~/.p10k.zsh
-
-# Install zap zsh if not present
-if [ ! -d "$HOME/.local/share/zap" ]; then
-    curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | zsh -s -- --branch release-v1
-fi
+ln -snfv "$PWD"/{nvim,ghostty,yazi} ~/.config/
+ln -snfv "$PWD/nushell/config.nu" "$NU_DIR/config.nu"
 
 if ! command -v brew >/dev/null 2>&1; then
     echo "Homebrew not found. Install it first: https://brew.sh" >&2
     exit 1
 fi
 
-brew bundle --file $DOTFILES_DIR/Brewfile
+brew bundle --file Brewfile
 
-echo "Dotfiles installed. 'source ~/.zshrc' to refresh"
+echo "Successful installation"
