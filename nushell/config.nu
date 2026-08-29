@@ -6,8 +6,8 @@ $env.EDITOR = "nvim"
 $env.CARAPACE_MATCH = "1" # 1 = case-insensitive.
 
 path add "/opt/homebrew/bin"
-path add ($nu.home-dir | path join "dotfiles" "bin")
 path add ($env.BUN_INSTALL | path join "bin")
+path add ($nu.home-dir | path join "dotfiles" "bin")
 path add ($nu.home-dir | path join "go" "bin")
 path add ($nu.home-dir | path join ".cargo" "bin")
 path add ($nu.home-dir | path join ".local" "bin") # claude, uv tools
@@ -42,8 +42,7 @@ const TN = {
     bg_dark: "#16161e"
 }
 
-#---------------------------------------------------colors: nushell itself
-# Merged rather than replaced, so keys added upstream keep their defaults.
+#---------------------------------------------------colors
 $env.config.color_config = ($env.config.color_config | merge {
     # syntax highlighting, live as you type
     shape_internalcall: $TN.blue
@@ -218,6 +217,7 @@ $env.config.completions.external.completer = {|spans| carapace $spans.0 nushell 
 alias v = nvim
 alias cat = bat
 alias gorepo = ^open (git remote get-url origin | str trim | str replace -r '\.git$' '')
+alias empty = osascript -e 'tell app "Finder" to empty'
 
 #---------------------------------------------------commands
 # yazi, landing in whatever directory it was left in.
@@ -263,4 +263,21 @@ $env.config.keybindings ++= [
         mode: [emacs vi_normal vi_insert]
         event: { send: executehostcommand, cmd: "ff" }
     }
+    {
+        # opt+delete
+        name: backspace_word
+        modifier: alt
+        keycode: backspace
+        mode: [emacs vi_normal vi_insert]
+        event: { edit: backspaceword }
+    }
+    {
+        # cmd+delete
+        name: cut_from_start
+        modifier: control
+        keycode: char_u
+        mode: [emacs vi_normal vi_insert]
+        event: { edit: cutfromstart }
+    }
 ]
+

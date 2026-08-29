@@ -31,4 +31,6 @@ keybind = super+d=scroll_page_down
 
 keybind = super+;=clear_screen
 keybind = super+f=text:\x06
+keybind = super+shift+e=equalize_splits
+
 
