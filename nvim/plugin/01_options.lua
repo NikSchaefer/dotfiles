@@ -12,7 +12,7 @@ vim.opt.expandtab = true
 
 -- 2-space indent for filetypes that conventionally use it
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "typescript", "typescriptreact", "json", "jsonc", "json5" },
+	pattern = { "typescript", "typescriptreact", "json", "jsonc", "json5", "c" },
 	callback = function()
 		vim.opt_local.tabstop = 2
 		vim.opt_local.shiftwidth = 2

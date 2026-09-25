@@ -10,17 +10,10 @@ if [ -n "$1" ]; then
         filename="${filename}.png"
     fi
 else
-    timestamp=$(date +"%Y-%m-%d")
-    filename="${timestamp}.png"
-    
-    # Handle conflicts by adding a counter if file exists
-    if [ -f "$filename" ]; then
-        counter=1
-        while [ -f "${timestamp}-${counter}.png" ]; do
-            counter=$((counter + 1))
-        done
-        filename="${timestamp}-${counter}.png"
-    fi
+    # Second-precision timestamp plus a random suffix so names never collide
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    suffix=$(uuidgen | tr -d '-' | tr '[:upper:]' '[:lower:]' | cut -c1-8)
+    filename="${timestamp}_${suffix}.png"
 fi
 
 # Use AppleScript to check clipboard and save image

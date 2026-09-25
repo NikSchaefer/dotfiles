@@ -149,6 +149,7 @@ later(function()
 			typst = { "typstyle" },
 			toml = { "taplo" },
 			python = { "ruff_format" },
+			c = { "clang_format" },
 			["_"] = { "oxfmt" },
 		},
 		format_on_save = function()
